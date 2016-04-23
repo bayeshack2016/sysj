@@ -6,3 +6,4 @@ pandas-profiling
 plotly
 flask
 pyjade
+pillow
