@@ -4,28 +4,26 @@ import pandas as pd
 df = pd.read_csv('us_counties_pop_april2010_july2015.csv', encoding='UTF-8')
 df = df[df.SUMLEV == 50]
 pop_cols = [c for c in df.columns if 'POPESTIMATE' in c]
-print pop_cols
 def merge_popestimate(row):
   pops = row[pop_cols].tolist()
   return ','.join([str(p) for p in pops])
 df['popestimate'] = df.apply(merge_popestimate, axis=1)
-print df['popestimate'].head(5)
-#def rate_dmig(row):
-#  diff = row['DOMESTICMIG2015'] - row['DOMESTICMIG2014']
-#  if row['DOMESTICMIG2014'] > 0:
-#    return diff / row['DOMESTICMIG2014'] 
-#  else:
-#    return diff  # hack if 0
-#df['rate_dmig_1415'] = df.apply(rate_dmig, axis=1)
-#df_by_dmig = df.sort_values('rate_dmig_1415', ascending=False)
 def rate_pop(row):
   diff = row['POPESTIMATE2015'] - row['POPESTIMATE2014']
   return diff / row['POPESTIMATE2014']
 df['rate_pop_1415'] = df.apply(rate_pop, axis=1)
 df_by_pop = df.sort_values('rate_pop_1415', ascending=False)
 df_by_nmig = df.sort_values('RNETMIG2015', ascending=False)
-print df_by_pop.head(10)  # dominated by North Dakota and Texas
-print df_by_nmig.head(10) # ditto
+#print df_by_pop.head(10)  # dominated by North Dakota and Texas
+#print df_by_nmig.head(10) # ditto
+
+cols = ['CTYNAME', 'STNAME', 'popestimate', 'rate_pop_1415', 'RNETMIG2015']
+top_pop = df_by_pop.head(10)
+print '\nTop 10 counties by rate of population increase from July 2014 to July 2015:'
+print top_pop[cols]
+top_nmig = df_by_nmig.head(10)
+print '\nTop 10 counties by rate of net migration increase from July 2014 to July 2015:'
+print top_nmig[cols]
 
 '''
 df_by_pop
