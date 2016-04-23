@@ -6,7 +6,7 @@ Yang Hong, Sasha Targ, Steven Troxler, Jeff Wu
 ## Setup
 
 ```
-sudo pip install Flask pyjade
+pip install -r requirements.txt
 
 ```
 
