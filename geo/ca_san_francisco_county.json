@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "San Francisco County, CA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 37.9297707,
+                  "lng" : -122.3279149
+               },
+               "southwest" : {
+                  "lat" : 37.6931289,
+                  "lng" : -123.166067
+               }
+            },
+            "location" : {
+               "lat" : 37.7749073,
+               "lng" : -122.4193878
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.8332484,
+                  "lng" : -122.3570189
+               },
+               "southwest" : {
+                  "lat" : 37.7080859,
+                  "lng" : -122.5177237
+               }
+            }
+         },
+         "place_id" : "ChIJIQBpAG2ahYARUksNqd0_1h8",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

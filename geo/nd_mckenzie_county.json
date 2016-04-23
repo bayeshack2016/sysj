@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "McKenzie County",
+               "short_name" : "McKenzie County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Dakota",
+               "short_name" : "ND",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "McKenzie County, ND, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.13440989999999,
+                  "lng" : -102.5699399
+               },
+               "southwest" : {
+                  "lat" : 47.328376,
+                  "lng" : -104.045371
+               }
+            },
+            "location" : {
+               "lat" : 47.7714179,
+               "lng" : -103.4122495
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.13440989999999,
+                  "lng" : -102.5699399
+               },
+               "southwest" : {
+                  "lat" : 47.328376,
+                  "lng" : -104.045371
+               }
+            }
+         },
+         "place_id" : "ChIJ-zUjNk2BJlMRNd79YrreYUM",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

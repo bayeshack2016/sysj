@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Travis County",
+               "short_name" : "Travis County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Texas",
+               "short_name" : "TX",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Travis County, TX, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 30.628249,
+                  "lng" : -97.369248
+               },
+               "southwest" : {
+                  "lat" : 30.0244991,
+                  "lng" : -98.1729768
+               }
+            },
+            "location" : {
+               "lat" : 30.2097015,
+               "lng" : -97.69822719999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 30.628249,
+                  "lng" : -97.369248
+               },
+               "southwest" : {
+                  "lat" : 30.0244991,
+                  "lng" : -98.1729768
+               }
+            }
+         },
+         "place_id" : "ChIJddG_PMCwRIYRO50oSjlkdJA",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Fort Bend County",
+               "short_name" : "Fort Bend County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Texas",
+               "short_name" : "TX",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Fort Bend County, TX, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 29.788337,
+                  "lng" : -95.42411790000001
+               },
+               "southwest" : {
+                  "lat" : 29.26259,
+                  "lng" : -96.0889119
+               }
+            },
+            "location" : {
+               "lat" : 29.5692614,
+               "lng" : -95.81428849999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 29.788337,
+                  "lng" : -95.42411790000001
+               },
+               "southwest" : {
+                  "lat" : 29.26259,
+                  "lng" : -96.0889119
+               }
+            }
+         },
+         "place_id" : "ChIJJ8TgvjLbQIYRVey1STdj-Lk",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
