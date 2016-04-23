@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Lassen County",
+               "short_name" : "Lassen County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Lassen County, CA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 41.184514,
+                  "lng" : -119.995598
+               },
+               "southwest" : {
+                  "lat" : 39.7076579,
+                  "lng" : -121.3323379
+               }
+            },
+            "location" : {
+               "lat" : 40.5394389,
+               "lng" : -120.7120023
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.184514,
+                  "lng" : -119.995598
+               },
+               "southwest" : {
+                  "lat" : 39.7076579,
+                  "lng" : -121.3323379
+               }
+            }
+         },
+         "place_id" : "ChIJy-T-M8DVzFQRDULlruqWmao",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

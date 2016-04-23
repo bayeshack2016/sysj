@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Sierra County",
+               "short_name" : "Sierra County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Sierra County, CA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 39.776877,
+                  "lng" : -120.00082
+               },
+               "southwest" : {
+                  "lat" : 39.391485,
+                  "lng" : -121.058203
+               }
+            },
+            "location" : {
+               "lat" : 39.5532845,
+               "lng" : -120.2512728
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 39.776877,
+                  "lng" : -120.00082
+               },
+               "southwest" : {
+                  "lat" : 39.391485,
+                  "lng" : -121.058203
+               }
+            }
+         },
+         "place_id" : "ChIJb3lbw8J1nIARlJ3CU84oUBc",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
