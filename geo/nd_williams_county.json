@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Williams County",
+               "short_name" : "Williams County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "North Dakota",
+               "short_name" : "ND",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Williams County, ND, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 48.6341559,
+                  "lng" : -102.8280549
+               },
+               "southwest" : {
+                  "lat" : 47.9559498,
+                  "lng" : -104.048074
+               }
+            },
+            "location" : {
+               "lat" : 48.432044,
+               "lng" : -103.2923954
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 48.6341559,
+                  "lng" : -102.8280549
+               },
+               "southwest" : {
+                  "lat" : 47.9559498,
+                  "lng" : -104.048074
+               }
+            }
+         },
+         "place_id" : "ChIJYXDpCrgTIVMRwkaae0eL-4Q",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

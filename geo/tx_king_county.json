@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "King County",
+               "short_name" : "King County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Texas",
+               "short_name" : "TX",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "King County, TX, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 33.8361469,
+                  "lng" : -99.9909799
+               },
+               "southwest" : {
+                  "lat" : 33.396997,
+                  "lng" : -100.518691
+               }
+            },
+            "location" : {
+               "lat" : 33.644342,
+               "lng" : -100.1703257
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.8361469,
+                  "lng" : -99.9909799
+               },
+               "southwest" : {
+                  "lat" : 33.396997,
+                  "lng" : -100.518691
+               }
+            }
+         },
+         "place_id" : "ChIJG8nydKw-VYYRuHp6waNT-1Y",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

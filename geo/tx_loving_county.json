@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Loving County",
+               "short_name" : "Loving County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Texas",
+               "short_name" : "TX",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Loving County, TX, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 32.0005539,
+                  "lng" : -103.326501
+               },
+               "southwest" : {
+                  "lat" : 31.650558,
+                  "lng" : -103.9800985
+               }
+            },
+            "location" : {
+               "lat" : 31.8883434,
+               "lng" : -103.6362715
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 32.0005539,
+                  "lng" : -103.326501
+               },
+               "southwest" : {
+                  "lat" : 31.650558,
+                  "lng" : -103.9800985
+               }
+            }
+         },
+         "place_id" : "ChIJTSNB73HO5IYRVuxGy9Cv7N4",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
