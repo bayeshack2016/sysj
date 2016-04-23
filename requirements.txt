@@ -1,0 +1,5 @@
+# can pin versions later if needed
+pandas
+jupyter
+matplotlib
+pandas-profiling
