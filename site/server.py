@@ -40,6 +40,7 @@ def county_info():
         'income': usdata.get_income_from_county(county, state, year),
         'gdp': usdata.get_gdp_from_state(state, year),
         'pce': usdata.get_pce_from_state(state, year),
+        'frac': usdata.get_fraction_from_county(county, state, year),
     }
     return flask.jsonify(
         info=info

@@ -21,10 +21,10 @@ def get_state_codes_map():
 def get_fraction_from_county(county, state, year, fraction=85):
     try:
         county_col = '%s, %s' % (county, state)
-        fraction_col = '%d_fraction_above_%d' % (year, fraction)
+        fraction_col = '%s_fraction_above_%d' % (year, fraction)
         df = pd.read_csv('%s/us_counties_fraction_above_2014_2016.csv' % data_folder)
         fraction = df[df.name == county_col].iloc[0][fraction_col]
-        return fraction.item()
+        return float(fraction.item())
     except:
         return None
 

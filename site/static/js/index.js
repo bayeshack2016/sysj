@@ -7,6 +7,7 @@ $(document).ready(function() {
 
   var $countyLink = $('#county_link');
   var $radiance = $('#county_radiance');
+  var $frac = $('#county_fraction');
   var $pop = $('#county_pop');
   var $income = $('#county_income');
   var $pce = $('#county_pce');
@@ -188,6 +189,12 @@ $(document).ready(function() {
         $income.text('$' + data.info['income'].toLocaleString());
       } else {
         $income.text('Unavailable');
+      }
+
+      if (data.info['frac']) {
+        $frac.text(Math.round(data.info['frac'] * 100) + '%');
+      } else {
+        $frac.text('Unavailable');
       }
 
       if (data.info['pce']) {
