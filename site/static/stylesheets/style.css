@@ -1,7 +1,8 @@
 /*
  * Grab a custom font from Google
  */
-@import url("http://fonts.googleapis.com/css?family=Quicksand");
+@import url("http://fonts.googleapis.com/css?family=Merriweather");
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro");
 /*
  * Nib provides a CSS reset
  */
@@ -10,23 +11,24 @@
  * background color as variables
  */
 body {
-  font-family: 'Georgia';
+  font-family: 'Source Sans Pro';
   background-color: #212121;
-  color: #fad980;
+  color: #d6d7d9;
 }
 
 header {
-  font-family: 'Quicksand';
+  font-family: 'Merriweather';
   padding: 1px;
-  color: #fff;
+  color: #f1f1f1;
   text-align: center;
-  background-color: #112e51;
+  background-color: #205493;
 }
 
 footer {
   width: 100%;
   padding: 5px 20px;
-  border-top: 1px dotted #fad980;
+  text-align: center;
+  /* border-top: 1px dotted #aeb0b5; */
   font-size: 13px;
 }
 
@@ -56,20 +58,12 @@ footer {
      * prefixes here. Nib will
      * add them for us
      */
-  border-radius: 3px;
-  border: 1px solid #fad980;
   margin-left: 20px;
-  background-color: #323a45;
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
 }
 
 .widget h1 {
-  font-family: 'Quicksand';
-  margin: 13px 10px 4px;
-  border-bottom: 1px dotted #ddd;
-  border-radius: 2px 2px 0px 0px;
-  margin-bottom: 10px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .widget p {
