@@ -3,9 +3,14 @@ import flask
 from flask import Flask, render_template, request
 import os
 
+# relative imports
+import data
+
 app = Flask(__name__, template_folder='views')
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 app.debug = True
+
+dao = data.Data()
 
 # templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'views')
 
@@ -15,12 +20,12 @@ def index():
 
 @app.route('/counties')
 def counties():
-    counties = ['Detroit, MI', 'Los Angeles, CA']
+    counties = dao.counties
     return flask.jsonify(counties=counties)
 
 @app.route('/months')
 def months():
-    months = ['2012/10', '2012/11']
+    months = dao.months
     return flask.jsonify(months=months)
 
 @app.route('/viirs_data')

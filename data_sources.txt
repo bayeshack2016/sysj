@@ -1,0 +1,5 @@
+Satellite data: comes from http://ngdc.noaa.gov/eog/viirs/download_monthly.html, tile 1 only
+
+Counties geo-json data: comes from https://github.com/bayesimpact/bayeshack-commerce-satellite
+
+State ids come from http://www2.census.gov/geo/docs/reference/state.txt
