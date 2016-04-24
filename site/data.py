@@ -181,7 +181,7 @@ def get_lat_and_lng_iter(np_array, affine, mask=None):
         lat, lng = px_to_coords(i, j, affine)
         yield {'lat': float(lat),
                'lng': float(lng),
-               'intensity': float(val)}
+               'radiance': float(val)}
 
 
 def get_2d_array_iter(np_array, mask=None):
