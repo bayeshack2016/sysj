@@ -21,6 +21,12 @@ app.debug = True
 def index():
     return render_template('index.jade')
 
+@app.route('/state_code_map')
+def state_code_map():
+    return flask.jsonify(
+        state_code_map=usdata.get_state_codes_map()
+    )
+
 @app.route('/county_info')
 def county_info():
     countystring = request.args.get('county')

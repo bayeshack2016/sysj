@@ -4,9 +4,8 @@ $(document).ready(function() {
   var $opacitySelect = $('#opacity_select');
   var $radiusSelect = $('#radius_select');
   var $map = $('#map');
-  var $countyStats = $('#county_stats');
-  var $countyStatsNone = $('#county_stats_none');
 
+  var $countyLink = $('#county_link');
   var $radiance = $('#county_radiance');
   var $pop = $('#county_pop');
   var $income = $('#county_income');
@@ -45,6 +44,14 @@ $(document).ready(function() {
           $('<option>').text(month).val(month)
         );
       });
+      cb();
+    });
+  }
+
+  var state_code_map;
+  function getStateCodeMap(cb) {
+    $.get('/state_code_map', function(data) {
+      state_code_map = data.state_code_map;
       cb();
     });
   }
@@ -131,9 +138,17 @@ $(document).ready(function() {
     curHeatmap && curHeatmap.set('opacity', $opacitySelect.val());
   });
 
-  function initMap() {
+  function updateCounty(cb) {
     var county = $countySelect.val();
     var month = $monthSelect.val();
+
+    var parts = county.split(',');
+    var linkStr = 'http://datausa.io/profile/geo/';
+    linkStr += parts[0].replace(/\s/, '-')      + '-';
+    linkStr += state_code_map[parts[1].trim()] + '/';
+    linkStr = linkStr.toLowerCase();
+    $countyLink.attr('href', linkStr);
+
     $.get('/county_info', {county: county, month: month}, function(data) {
 
       if (data.info['pop']) {
@@ -160,14 +175,14 @@ $(document).ready(function() {
         $pce.text('Unavailable');
       }
 
-      if (data.info) {
-        $countyStats.removeClass('hidden');
-        $countyStatsNone.addClass('hidden');
-      } else {
-        $countyStats.addClass('hidden');
-        $countyStatsNone.removeClass('hidden');
-      }
+      return cb();
+    });
+  }
 
+  function initMap() {
+    updateCounty(function() {
+      var county = $countySelect.val();
+      var month = $monthSelect.val();
       getHeatmap(county, month, function(info) {
         mainMap.setCenter({
           lng: (info.bounds.lng.max + info.bounds.lng.min) / 2,
@@ -185,7 +200,9 @@ $(document).ready(function() {
 
   getCounties(function() {
     getMonths(function() {
-      initMap();
+      getStateCodeMap(function() {
+        initMap();
+      });
     });
   });
 
