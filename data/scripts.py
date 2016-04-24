@@ -121,8 +121,12 @@ print pce_by_perc_change.head(10)
 #gdp.to_csv('us_states_percent_change_gdp_2014_2015.csv', sep=',', index=False)
 
 print '\n=== Top 10 states by percent increase in GDP from 2014 to 2015: ==='
-gdp = pd.read_csv('us_states_percent_change_gdp_2014_2015.csv', encoding='utf-8')
-#gdp['gdp_2014_2015_q3'] = gdp.apply(lambda r: round((r['gdp_2015_q3'] - r['gdp_2014_q3'])/r['gdp_2014_q3'], 1), axis=1)
-gdp_by_perc_change = gdp.sort_values('gdp_2015_q3', ascending=False)  # gdp_2014_2015_q3
+gdp_change = pd.read_csv('us_states_percent_change_gdp_2014_2015.csv', encoding='utf-8')
+#gdp['gdp_2014_2015_q3'] = gdp_change.apply(lambda r: round((r['gdp_2015_q3'] - r['gdp_2014_q3'])/r['gdp_2014_q3'], 1), axis=1)
+gdp_by_perc_change = gdp_change.sort_values('gdp_2015_q3', ascending=False)  # gdp_2014_2015_q3
 print gdp_by_perc_change.head(10)
+
+print '\n=== Top 10 states by GDP in 2015 Q2 (in millions of dollars): ==='
+gdp = pd.read_csv('us_states_gdp_in_millions_of_dollars_2015_q2.csv', encoding='utf-8')
+print gdp.sort_values('gdp_2015_q2', ascending=False).head(10)
 
