@@ -13,6 +13,10 @@ body {
   font-family: 'Georgia';
   background-color: #faf9f0;
   color: #444;
+  /*
+   * background-image: url("/static/images/viirs_tiny/tile1.2014-02.tiny.png");
+   * background-size: contain;
+  */
 }
 
 header {
@@ -31,14 +35,14 @@ header {
 }
 
 .container {
-  width: 500px;
+  width: 100%;
   margin: 50px auto;
   overflow: hidden;
 }
 
 .main-content {
   float: left;
-  width: 300px;
+  width: 30%;
 }
 
 .main-content p {
@@ -47,7 +51,7 @@ header {
 
 .sidebar {
   float: left;
-  width: 200px;
+  width: 70%;
 }
 
 .sidebar .widget {
@@ -88,4 +92,8 @@ footer {
   border-top: 1px dotted #ccc;
   padding-top: 5px;
   font-size: 13px;
+}
+
+.viirs-image {
+  max-width: 100%:
 }
