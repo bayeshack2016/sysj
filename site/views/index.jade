@@ -1,5 +1,6 @@
 extend layout
 block content
+  #map
   p
     | We did the data stuff
   p
@@ -12,7 +13,8 @@ block content
     | Good night world
 block sidebar
   .widget
-    h1 Widget
+    h1 Options
+    select#county_select(name="counties")
     p
       | Not sure what goes here
     p
