@@ -12,28 +12,29 @@ from shapely.geometry import shape
 
 HOME = os.path.expanduser('~')
 THIS_FILE_DIR = os.path.dirname(__file__)
-OUR_REPO = sh.git('rev-parse', '--show-toplevel', _cwd=THIS_FILE_DIR).stdout.strip()
+OUR_REPO = sh.git('rev-parse', '--show-toplevel',
+                  _cwd=THIS_FILE_DIR).stdout.strip()
 
-EXT_DATA_DIR = os.path.join(HOME, 'bh', 'data')
 INT_DATA_DIR = os.path.join(OUR_REPO, 'data')
+EXT_DATA_DIR = os.path.join(HOME, 'bh', 'data')
 SAT_DIR = os.path.join(EXT_DATA_DIR, 'satellite')
 GEO_DIR = os.path.join(INT_DATA_DIR, 'geo')
 
-DEMO_TIF_R = EXT_DATA_DIR + '/SVDNB_npp_20160201-20160229_00N060E_vcmcfg_v10_c201603152010.avg_rade9.tif'
-DEMO_TIF_C = INT_DATA_DIR + '/SVDNB_npp_20160201-20160229_00N060E_vcmcfg_v10_c201603152010.cf_cvg.tif'
-
+# this is commented because we are currently only using counties, not metro
+# areas
+'''
 # metropolitan shapefile
 METRO_SHP = os.path.join(EXT_DATA_DIR, 'cb_2014_us_cbsa_20m.shp')
-
 # metropolitan populations
-METRO_POP = os.path.join(EXT_DATA_DIR, 'us_metropolitan_area_census_data_2014.csv')
+METRO_POP = os.path.join(EXT_DATA_DIR,
+                         'us_metropolitan_area_census_data_2014.csv')
+'''
 
 # county geo-json files
-COUNTY_GJS_BIG = os.path.join(EXT_DATA_DIR, 'us_counties_500k.json')
-COUNTY_GJS = os.path.join(EXT_DATA_DIR, 'us_counties_5m.json')
+COUNTY_GJS = os.path.join(INT_DATA_DIR, 'us_counties_5m.json')
 
 # State metadata, which is a | - separated file
-STATE_META = os.path.join(EXT_DATA_DIR, 'state.txt')
+STATE_META = os.path.join(INT_DATA_DIR, 'state.txt')
 
 
 class Data(object):
