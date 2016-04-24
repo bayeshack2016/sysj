@@ -22,7 +22,7 @@ def get_county_data(counties, month):
             'state_name': state_name,
         }
         for p, v in zip(percents, percentiles):
-            county_data['percentile_%d' % p] = v
+            county_data['percentile_%03d' % p] = v
         yield county_data
 
 
@@ -45,6 +45,31 @@ def create_dataframe(counties, month):
     return dataframe_from_record_iter(iter_, n_county)
 
 
+def add_fractions(df):
+    "adds columns for fraction of pixels above percentile threshold"
+    # calculate light intensity thresholds across counties
+
+    percent_cols = filter(lambda c: c.startswith('percentile'), df.columns)
+    vals = df[percent_cols].values
+
+    percents = np.linspace(65,95,4)
+    thresholds = {}
+    fraction_above = {}
+
+    for percent in percents:
+        cutoff_value = np.percentile(vals, percent)
+        thresholds['average_percentile_%d' % percent] = cutoff_value
+        fraction_above['average_percentile_%d' % percent] = np.zeros(len(vals))
+
+        for i in xrange(len(df)):
+            county_percentiles = vals[i]
+            frac_below = .01 * county_percentiles.searchsorted(cutoff_value)
+            frac_above = 1.0 - frac_below
+            fraction_above['average_percentile_%d' % percent][i] = frac_above
+
+        df['fraction_above_%d' % percent] = \
+            fraction_above['average_percentile_%d' % percent]
+    
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -65,6 +90,7 @@ if __name__ == '__main__':
     dao = data.Data()
     month = args.month
     counties = dao.counties
-    df = create_dataframe(counties, month)
-
+    df = create_dataframe(counties, month).set_index('name')
+    add_fractions(df)
+    
     df.to_csv(args.output, index=False)
