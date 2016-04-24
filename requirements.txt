@@ -7,3 +7,10 @@ plotly
 flask
 pyjade
 pillow
+geojson
+descartes
+shapely
+rasterio
+fiona
+affine
+tqdm
