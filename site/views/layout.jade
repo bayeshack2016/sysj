@@ -3,16 +3,28 @@ html
   head
     title  Sysj
     link(rel='stylesheet', href='/static/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js")
     script(src="https://maps.googleapis.com/maps/api/js?libraries=visualization")
     script(src='/static/js/index.js')
   body
     header
-      h1 Night lights in all US counties
+      h1
+        i(class="fa fa-moon-o", aria-hidden="true", style='margin-right: 10px')
+        |Night lights of the US
     .container
       .main-content
         block content
       .sidebar
         block sidebar
     footer
-      p Made with <3 for Bayes Hack 2016
+      p
+        | Made with
+        i(class="fa fa-heart-o", aria-hidden="true", style='margin: 0px 4px')
+        | for Bayes Hack 2016 by team sysj
+      p
+        | VIIRS infrared dataset provided by the United States Department of Commerce
+      p
+        | Code on
+        = ' '
+        a(href="https://github.com/bayeshack2016/sysj", style="color:3e94cf") github

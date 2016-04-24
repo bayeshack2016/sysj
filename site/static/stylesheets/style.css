@@ -76,7 +76,7 @@ footer {
 }
 
 p {
-  line-height: 1.8;
+  line-height: 0.8;
 }
 
 #map {
@@ -86,4 +86,8 @@ p {
 
 .hidden {
   display: none;
+}
+
+a, a:visited {
+  color: #3e94cf;
 }
