@@ -32,14 +32,20 @@ $(document).ready(function() {
     var county = $countySelect.val();
     var month = $monthSelect.val();
     $.get('/viirs_data', {county: county, month: month}, function(data) {
+      var center_lat = (data.bounds.lat.min + data.bounds.lat.max) / 2;
+      var center_lng = (data.bounds.lng.min + data.bounds.lng.max) / 2;
+
       var map = new google.maps.Map($map[0], {
         zoom: 13,
-        center: {lat: 37.775, lng: -122.434},
+        center: {lat: center_lat, lng: center_lng},
         mapTypeId: google.maps.MapTypeId.SATELLITE
       });
 
       var dataPoints = data.points.map(function(x) {
-        return new google.maps.LatLng(x.lat, x.lng);
+        return {
+          location: new google.maps.LatLng(x.lat, x.lng),
+          weight: x.intensity,
+        };
       });
 
       var heatmap = new google.maps.visualization.HeatmapLayer({
