@@ -1,7 +1,8 @@
 /*
  * Grab a custom font from Google
  */
-@import url("http://fonts.googleapis.com/css?family=Quicksand");
+@import url("http://fonts.googleapis.com/css?family=Merriweather");
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro");
 /*
  * Nib provides a CSS reset
  */
@@ -10,37 +11,36 @@
  * background color as variables
  */
 body {
-  font-family: 'Georgia';
-  background-color: #faf9f0;
-  color: #444;
+  font-family: 'Source Sans Pro';
+  background-color: #212121;
+  color: #d6d7d9;
 }
 
 header {
-  font-family: 'Quicksand';
-  padding: 10px;
-  color: #fff;
-  font-size: 25px;
+  font-family: 'Merriweather';
+  padding: 1px;
+  color: #f1f1f1;
   text-align: center;
-  background-color: #563554;
+  background-color: #205493;
 }
 
 footer {
   width: 100%;
-  padding: 0px 20px;
-  border-top: 1px dotted #ccc;
-  padding-top: 5px;
+  padding: 5px 20px;
+  text-align: center;
+  /* border-top: 1px dotted #aeb0b5; */
   font-size: 13px;
 }
 
 .container {
-  width: 1000px;
-  margin: 50px auto;
+  width: 100%;
+  margin: 10px auto;
   overflow: hidden;
 }
 
 .main-content {
   float: left;
-  width: 600px;
+  width: 60%;
 }
 
 .main-content p {
@@ -49,7 +49,7 @@ footer {
 
 .sidebar {
   float: left;
-  width: 400px;
+  width: 40%;
 }
 
 .widget {
@@ -58,21 +58,12 @@ footer {
      * prefixes here. Nib will
      * add them for us
      */
-  border-radius: 3px;
-  border: 1px solid #ccc;
   margin-left: 20px;
-  background-color: #faf9f0;
-  box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,0.8), 0px 3px 0px -2px rgba(0,0,0,0.1);
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
 }
 
 .widget h1 {
-  font-family: 'Quicksand';
-  margin: 13px 10px 4px;
-  border-bottom: 1px dotted #ddd;
-  border-radius: 2px 2px 0px 0px;
-  margin-bottom: 10px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .widget p {
@@ -85,7 +76,7 @@ footer {
 }
 
 p {
-  line-height: 1.8;
+  line-height: 0.8;
 }
 
 #map {
@@ -95,4 +86,8 @@ p {
 
 .hidden {
   display: none;
+}
+
+a, a:visited {
+  color: #3e94cf;
 }

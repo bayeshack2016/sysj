@@ -11,9 +11,7 @@ import data
 def get_county_data(counties, month):
     percents = np.linspace(0, 100, 101)
     for n in counties:
-        start_time = time.time()
-        print 'fetching'
-        _, _, unmasked, masked = dao.get_county(n, month, 'raster')
+        _, _, unmasked, masked, _ = dao.get_county(n, month, 'raster')
         county_name, state_name = tuple(n.split(','))
         # import pudb; pudb.set_trace()
         flat = np.array(masked[~masked.mask])
@@ -68,3 +66,5 @@ if __name__ == '__main__':
     df = create_dataframe(counties, month)
 
     df.to_csv(args.output, index=False)
+=======
+>>>>>>> 79ac0c228f803722e4d6db28367b649590b1b55c

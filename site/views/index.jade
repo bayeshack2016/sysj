@@ -3,7 +3,8 @@ block content
   #map
 block sidebar
   .widget
-    h1 Options
+    h1
+      | Options
 
     table
       tr.widget-option
@@ -22,8 +23,14 @@ block sidebar
         td
           | Opacity
         td
-          input#opacity_select(type="range", id="weight", min="0", value="0.30", max="1", step="0.01")
-  .widget
+          input#opacity_select(type="range", min="0", max="1", step="0.01", value="0.30")
+      tr.widget-option
+        td
+          | Radius
+        td
+          input#radius_select(type="range", min="1", max="2", step="0.01", value="1")
+
+  .widget(style='margin-top:20px')
     h1 County statistics
     #county_stats_none
       | Sorry!  No county stats found!
