@@ -3,6 +3,8 @@ $(document).ready(function() {
   var $monthSelect = $('#month_select');
   var $opacitySelect = $('#opacity_select');
   var $map = $('#map');
+  var $countyStats = $('#county_stats');
+  var $countyStatsNone = $('#county_stats_none');
 
   function getCounties(cb) {
     $.get('/counties', function(data) {
@@ -31,62 +33,72 @@ $(document).ready(function() {
   function initMap() {
     var county = $countySelect.val();
     var month = $monthSelect.val();
-    $.get('/viirs_data', {county: county, month: month}, function(data) {
-      var center_lat = (data.bounds.lat.min + data.bounds.lat.max) / 2;
-      var center_lng = (data.bounds.lng.min + data.bounds.lng.max) / 2;
-
-      var map = new google.maps.Map($map[0], {
-        zoom: 13,
-        center: {lat: center_lat, lng: center_lng},
-        mapTypeId: google.maps.MapTypeId.SATELLITE
-      });
-
-      var dataPoints = data.points.map(function(x) {
-        return {
-          location: new google.maps.LatLng(x.lat, x.lng),
-          weight: x.intensity,
-        };
-      });
-
-      var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: dataPoints,
-        map: map
-      });
-
-      $opacitySelect.unbind();
-      $opacitySelect.on('input change', function() {
-        heatmap.set('opacity', $opacitySelect.val());
-      });
-      $opacitySelect.change();
-
-      function toggleHeatmap() {
-        heatmap.setMap(heatmap.getMap() ? null : map);
+    $.get('/county_info', {county: county}, function(data) {
+      if (data.info) {
+        $countyStats.removeClass('hidden');
+        $countyStatsNone.addClass('hidden');
+      } else {
+        $countyStats.addClass('hidden');
+        $countyStatsNone.removeClass('hidden');
       }
 
-      function changeGradient() {
-        var gradient = [
-          'rgba(0, 255, 255, 0)',
-          'rgba(0, 255, 255, 1)',
-          'rgba(0, 191, 255, 1)',
-          'rgba(0, 127, 255, 1)',
-          'rgba(0, 63, 255, 1)',
-          'rgba(0, 0, 255, 1)',
-          'rgba(0, 0, 223, 1)',
-          'rgba(0, 0, 191, 1)',
-          'rgba(0, 0, 159, 1)',
-          'rgba(0, 0, 127, 1)',
-          'rgba(63, 0, 91, 1)',
-          'rgba(127, 0, 63, 1)',
-          'rgba(191, 0, 31, 1)',
-          'rgba(255, 0, 0, 1)'
-        ];
-        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-      }
+      $.get('/viirs_data', {county: county, month: month}, function(data) {
+        var center_lat = (data.bounds.lat.min + data.bounds.lat.max) / 2;
+        var center_lng = (data.bounds.lng.min + data.bounds.lng.max) / 2;
 
-      function changeRadius() {
-        heatmap.set('radius', heatmap.get('radius') ? null : 20);
-      }
+        var map = new google.maps.Map($map[0], {
+          zoom: 13,
+          center: {lat: center_lat, lng: center_lng},
+          mapTypeId: google.maps.MapTypeId.SATELLITE
+        });
 
+        var dataPoints = data.points.map(function(x) {
+          return {
+            location: new google.maps.LatLng(x.lat, x.lng),
+            weight: x.intensity,
+          };
+        });
+
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: dataPoints,
+          map: map
+        });
+
+        $opacitySelect.unbind();
+        $opacitySelect.on('input change', function() {
+          heatmap.set('opacity', $opacitySelect.val());
+        });
+        $opacitySelect.change();
+
+        function toggleHeatmap() {
+          heatmap.setMap(heatmap.getMap() ? null : map);
+        }
+
+        function changeGradient() {
+          var gradient = [
+            'rgba(0, 255, 255, 0)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(0, 127, 255, 1)',
+            'rgba(0, 63, 255, 1)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 0, 223, 1)',
+            'rgba(0, 0, 191, 1)',
+            'rgba(0, 0, 159, 1)',
+            'rgba(0, 0, 127, 1)',
+            'rgba(63, 0, 91, 1)',
+            'rgba(127, 0, 63, 1)',
+            'rgba(191, 0, 31, 1)',
+            'rgba(255, 0, 0, 1)'
+          ];
+          heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+        }
+
+        function changeRadius() {
+          heatmap.set('radius', heatmap.get('radius') ? null : 20);
+        }
+
+      });
     });
   }
 

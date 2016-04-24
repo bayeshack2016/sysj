@@ -1,16 +1,6 @@
 extend layout
 block content
   #map
-  p
-    | We did the data stuff
-  p
-    | And the data was good
-  p
-    | And the data was clean
-  p
-    | The data told us everything
-  p
-    | Good night world
 block sidebar
   .widget
     h1 Options
@@ -33,3 +23,8 @@ block sidebar
           | Opacity
         td
           input#opacity_select(type="range", id="weight", min="0", value="0.30", max="1", step="0.01")
+  .widget
+    h1 County statistics
+    #county_stats_none
+      | Sorry!  No county stats found!
+    #county_stats.hidden
