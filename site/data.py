@@ -145,6 +145,8 @@ def get_sub_image(raster_file, geo_feature):
       - the raw pixel data for the bounding box, as a numpy array
       - the masked version of that data
       - the affine transformation
+
+    Thanks to @star_is_here for the starting point of the code
     """
     # get a shapely geometry object from the feature
     geometry = shape(geo_feature['geometry'])
