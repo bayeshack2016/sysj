@@ -20,6 +20,14 @@ app.debug = True
 def index():
     return render_template('index.jade')
 
+@app.route('/county_info')
+def county_info():
+    county = request.args.get('county')
+    info = None
+    return flask.jsonify(
+        info=info
+    )
+
 @app.route('/counties')
 def counties():
     if mock:
