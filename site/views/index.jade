@@ -14,8 +14,22 @@ block content
 block sidebar
   .widget
     h1 Options
-    select#county_select(name="counties")
-    p
-      | Not sure what goes here
-    p
-      | We could remove this
+
+    table
+      tr.widget-option
+        td
+          | County
+        td
+          select#county_select(name="counties")
+
+      tr.widget-option
+        td
+          | Month
+        td
+          select#month_select(name="months")
+
+      tr.widget-option
+        td
+          | Opacity
+        td
+          input#opacity_select(type="range", id="weight", min="0", value="0.30", max="1", step="0.01")

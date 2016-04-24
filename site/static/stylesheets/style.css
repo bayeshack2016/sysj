@@ -29,7 +29,7 @@ header {
 }
 
 .container {
-  width: 700px;
+  width: 800px;
   margin: 50px auto;
   overflow: hidden;
 }
@@ -45,10 +45,10 @@ header {
 
 .sidebar {
   float: left;
-  width: 200px;
+  width: 300px;
 }
 
-.sidebar .widget {
+.widget {
 /*
      * Note the lack of vendor
      * prefixes here. Nib will
@@ -62,17 +62,22 @@ header {
   padding: 10px 10px 10px 10px;
 }
 
-.sidebar .widget h1 {
+.widget h1 {
   font-family: 'Quicksand';
   margin: 13px 10px 4px;
   border-bottom: 1px dotted #ddd;
   border-radius: 2px 2px 0px 0px;
   margin-bottom: 10px;
+  padding-bottom: 20px;
 }
 
-.sidebar .widget p {
+.widget p {
   font-size: 13px;
   margin-bottom: 10px;
+}
+
+.widget-option {
+  padding: 5px;
 }
 
 p {
