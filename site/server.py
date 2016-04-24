@@ -31,7 +31,7 @@ def viirs_data():
     print "MONTH", month
     return flask.jsonify(
         points = [
-            {'lat': 37.782551 + random.random(), 'lng': -122.445368 + random.random()}
+            {'lat': 37.782551 + random.random(), 'lng': -122.445368 + random.random(), 'intensity': random.random()}
             for _ in range(500)
         ]
     )
