@@ -3,6 +3,10 @@ Bayes hack 2016 project
 
 Yang Hong, Sasha Targ, Steven Troxler, Jeff Wu
 
+## Data sources
+
+http://ngdc.noaa.gov/eog/viirs/download_monthly.html
+
 ## Setup
 
 [Install libjpeg and zlib](http://stackoverflow.com/questions/34631806/fail-during-installation-of-pillow-python-module-in-linux)
