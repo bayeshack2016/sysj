@@ -85,10 +85,10 @@ class Data(object):
             try:
                 raster_file = rasterio.open(self._image_paths[month], 'r')
                 geoj = self._get_county_geojson(county_name)
-                affine, bbox, mbbox = get_sub_image(raster_file, geoj)
+                affine, bbox, mbbox, mask = get_sub_image(raster_file, geoj)
             except KeyError:
                 raise ValueError("Unknown month %r" % month)
-            return geoj, affine, bbox, mbbox
+            return geoj, affine, bbox, mbbox, mask
 
     def state_meta(self, state_id):
         "Get a dict of metadata about a state"
@@ -166,13 +166,15 @@ def get_sub_image(raster_file, geo_feature):
         all_touched=True,
         dtype=np.uint8
     )
-    bb_masked = np.ma.array(data=bb_data, mask=containment_mask.astype(bool))
-    return bb_affine, bb_data, bb_masked
+    mask = containment_mask.astype(bool)
+    bb_masked = np.ma.array(data=bb_data, mask=mask)
+    return bb_affine, bb_data, bb_masked, mask
 
-def get_2d_array_iter(np_array):
+def get_2d_array_iter(np_array, mask=None):
     for i in range(np_array.shape[0]):
         for j in range(np_array.shape[1]):
-            yield i, j, np_array[i][j]
+            if mask is None or not mask[i][j]:
+                  yield i, j, np_array[i][j]
 
 # utilities ----------------------------------------
 

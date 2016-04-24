@@ -65,8 +65,8 @@ def viirs_data():
         ]
 
     else:
-        geoj, affine, bbox, mbbox = dao.get_county(county, month=month, which='raster')
-        for i, j, val in data.get_2d_array_iter(bbox):
+        geoj, affine, bbox, _, mask = dao.get_county(county, month=month, which='raster')
+        for i, j, val in data.get_2d_array_iter(bbox, mask):
             lat, lon = data.px_to_coords(i, j, affine)
             points.append({
                 'lat': lat,
