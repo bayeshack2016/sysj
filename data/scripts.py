@@ -1,7 +1,7 @@
 from __future__ import division
 import pandas as pd
 
-df = pd.read_csv('us_counties_pop_april2010_july2015.csv', encoding='UTF-8')
+df = pd.read_csv('us_counties_pop_april2010_july2015.csv', encoding='utf-8')
 df = df[df.SUMLEV == 50]
 pop_cols = [c for c in df.columns if 'POPESTIMATE' in c]
 def merge_popestimate(row):
@@ -19,10 +19,10 @@ df_by_nmig = df.sort_values('RNETMIG2015', ascending=False)
 
 cols = ['CTYNAME', 'STNAME', 'popestimate', 'rate_pop_1415', 'RNETMIG2015']
 top_pop = df_by_pop.head(10)
-print '\nTop 10 counties by rate of population increase from July 2014 to July 2015:'
+print '\n=== Top 10 counties by rate of population increase from July 2014 to July 2015: ==='
 print top_pop[cols]
 top_nmig = df_by_nmig.head(10)
-print '\nTop 10 counties by rate of net migration increase from July 2014 to July 2015:'
+print '\n=== Top 10 counties by rate of net migration increase from July 2014 to July 2015: ==='
 print top_nmig[cols]
 
 '''
@@ -88,3 +88,21 @@ Broomfield County          55889              55866            56271
                 704,711,710,721,695,726       0.044604
     56271,57445,58949,60163,61875,65065       0.051556
 '''
+
+'''
+Let's focus on these counties for now:
+  Loving County, TX
+  McKenzie County, ND
+  Williams County, ND
+  King County, TX
+  San Francisco, CA
+They are the top 4 counties by both pop rate and net domestic migration rate from 2014 to 2015, plus SF for comparison.
+'''
+
+# Temp code to calculate percent change in pcpi from 2012 to 2014 and add that to the csv
+#pcpi['perc_change_2012_2014'] = pcpi.apply(lambda r: round((r['pcpi_2014'] - r['pcpi_2012'])/r['pcpi_2012'] * 100, 1), axis=1)
+#pcpi.to_csv('us_counties_per_capita_personal_income_2012_2014_subset.csv', index=False)
+
+print '\n=== Per capita personal income in the 5 counties of interest from 2012 to 2014: ==='
+pcpi = pd.read_csv('us_counties_per_capita_personal_income_2012_2014_subset.csv', encoding='utf-8')
+print pcpi
