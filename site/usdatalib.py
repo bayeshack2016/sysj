@@ -27,7 +27,7 @@ def get_fraction_from_county(county, state, year, fraction=85):
         return fraction.item()
     except:
         return None
-        
+
 # valid years: 2010-2015
 def get_pop_from_county(county, state, year):
     try:
@@ -76,15 +76,14 @@ def get_pce_from_state(state, year):
 
 # Uncomment for testing:
 #print '\nTesting...'
-county = 'San Francisco'
-state = 'California'
-year = 2014
+#county = 'San Francisco'
+#state = 'California'
+#year = 2014
 #print 'Data for %s, %s in year %s:' % (county, state, year)
 #print 'pop: %d' % get_pop_from_county(county, state, year)
 #print 'income: %d' % get_income_from_county(county, state, year)
 #print 'gdp: %d' % get_gdp_from_state(state, year)
 #print 'pce: %d' % get_pce_from_state(state, year)
-print 'state codes: ' 
-print get_state_codes_map()
-print 'light: %0.2f' % get_fraction_from_county(county, state, year)
-
+# print 'state codes: '
+# print get_state_codes_map()
+# print 'light: %0.2f' % get_fraction_from_county(county, state, year)
