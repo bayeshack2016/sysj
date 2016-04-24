@@ -1,7 +1,9 @@
-Bayes hack 2016 project
+Bayes Hack 2016 project
 
+Team: Yang Hong, Sasha Targ, Steven Troxler, Jeff Wu
 
-Yang Hong, Sasha Targ, Steven Troxler, Jeff Wu
+## Night Lights
+![VIIRS Suomi NPP satellite US 2012](data/nightlights.jpg)
 
 ## Data sources
 
