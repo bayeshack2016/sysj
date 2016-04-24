@@ -37,13 +37,13 @@ def get_pce_from_state(state, year):
   pce = df[df.state == state].iloc[0][year_col]
   return pce.item()
 
-
-print '\nTesting...'
-county = 'San Francisco'
-state = 'California'
-year = 2014
-print 'Data for %s, %s in year %s:' % (county, state, year)
-print 'pop: %d' % get_pop_from_county(county, state, year)
-print 'income: %d' % get_income_from_county(county, state, year)
-print 'gdp: %d' % get_gdp_from_state(state, year)
-print 'pce: %d' % get_pce_from_state(state, year)
+# Uncomment for testing:
+#print '\nTesting...'
+#county = 'San Francisco'
+#state = 'California'
+#year = 2014
+#print 'Data for %s, %s in year %s:' % (county, state, year)
+#print 'pop: %d' % get_pop_from_county(county, state, year)
+#print 'income: %d' % get_income_from_county(county, state, year)
+#print 'gdp: %d' % get_gdp_from_state(state, year)
+#print 'pce: %d' % get_pce_from_state(state, year)
