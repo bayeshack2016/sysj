@@ -12,7 +12,7 @@ $(document).ready(function() {
   var $pce = $('#county_pce');
   var $gdp = $('#county_gdp');
 
-  var initial_county = 'San Francisco';
+  var initial_county = 'San Francisco, California';
   // center of sf
   var initial_center = {
     lat: 37.791666369,
@@ -20,16 +20,44 @@ $(document).ready(function() {
   };
   var initial_zoom = 12;
 
+  var special_counties = {
+    'San Francisco, California': true,
+    'Philadelphia, Pennsylvania': true,
+    'New York, New York': true,
+    'McKenzie, North Dakota': true,
+    'Williams, North Dakota': true,
+    'King, Texas': true,
+    'Loving, Texas': true,
+    'Austin, Texas': true,
+    'San Diego, California': true,
+    'Los Angeles, California': true,
+    'Sumter, Florida': true,
+  };
 
   function getCounties(cb) {
     $.get('/counties', function(data) {
       $countySelect.empty();
+
+      // special counties
+      data.counties.forEach(function(county) {
+        if (special_counties[county]) {
+          $countySelect.append(
+            $('<option>').text(county).val(county)
+              .attr('selected', (county.indexOf(initial_county) > -1))
+          );
+        }
+      });
+
+      $countySelect.append(
+        $('<option>')
+          .text('-------------------------------------')
+          .attr('disabled', true)
+      );
+
+      // all counties
       data.counties.forEach(function(county) {
         $countySelect.append(
-          $('<option>')
-            .text(county)
-            .val(county)
-            .attr('selected', (county.indexOf(initial_county) > -1))
+          $('<option>').text(county).val(county)
         );
       });
       cb();
@@ -109,19 +137,10 @@ $(document).ready(function() {
   var curHeatmap;
 
   function reset_zoom(bounds) {
-    var zoom = 20;
-    while (
-      (zoom > 0) &&
-      (
-           (mainMap.getBounds().j.j > bounds.lng.min)
-        || (mainMap.getBounds().j.R < bounds.lng.max)
-        || (mainMap.getBounds().R.R > bounds.lat.min)
-        || (mainMap.getBounds().R.j < bounds.lat.max)
-      )
-    ) {
-      zoom--;
-      mainMap.setZoom(zoom);
-    }
+    mainMap.fitBounds(new google.maps.LatLngBounds(
+      new google.maps.LatLng(bounds.lat.min, bounds.lng.min),
+      new google.maps.LatLng(bounds.lat.max, bounds.lng.max)
+    ));
   }
 
   function reset_radius() {
