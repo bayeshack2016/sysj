@@ -8,10 +8,12 @@ data_folder = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), '..', 'data'
 )
 
-def get_code_from_state(state):
+# dict of {state_name: state_code}, e.g. {'California': 'CA'}
+def get_state_codes_map():
     try:
-        df = pd.read_csv('%s/us_state_code_mapping.csv' % data_folder, encoding='utf-8')
-        return df[df.state_name == state].iloc[0]['state_code']
+        df = pd.read_csv('%s/us_state_code_mapping.csv' % data_folder, index_col='state_name', encoding='utf-8')
+        df['state_code'] = df['state_code'].apply(lambda x: x.strip())
+        return df.to_dict()['state_code']
     except:
         return None
 
@@ -71,5 +73,6 @@ def get_pce_from_state(state, year):
 #print 'income: %d' % get_income_from_county(county, state, year)
 #print 'gdp: %d' % get_gdp_from_state(state, year)
 #print 'pce: %d' % get_pce_from_state(state, year)
-#print 'state code: %s' % get_code_from_state(state)
+print 'state codes: ' 
+print get_state_codes_map()
 
