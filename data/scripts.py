@@ -130,3 +130,15 @@ print '\n=== Top 10 states by GDP in 2015 Q2 (in millions of dollars): ==='
 gdp = pd.read_csv('us_states_gdp_in_millions_of_dollars_2015_q2.csv', encoding='utf-8')
 print gdp.sort_values('gdp_2015_q2', ascending=False).head(10)
 
+# Temp code to data munge gdp data (merge 2011-2014 data with 2015 data)
+#gdp2015 = pd.read_csv('us_states_gdp_in_millions_of_dollars_2015_q2.csv', encoding='utf-8')
+#gdp = pd.read_csv('us_states_real_gdp_2011_2014.csv', encoding='utf-8')
+#gdp = gdp.merge(gdp2015, how='left', on='state')
+#gdp = gdp.rename(columns={'gdp_2015_q2':'gdp_2015', 'rank':'rank_2015'})
+#valid_years = [2011, 2012, 2013, 2014]
+#for year in valid_years:
+#  year_col = 'gdp_%s' % year
+#  gdp[year_col] = gdp[year_col].apply(lambda x: x.replace(',',''))
+#  gdp[year_col] = gdp[year_col].astype(int)
+#print gdp.head()
+#gdp.to_csv('us_states_real_gdp_2011_2015.csv', index=False)

@@ -15,6 +15,7 @@ def get_pop_from_county(county, state, year):
   return pop.item()
 
 # valid years: 2012-2014
+# only valid for a small subset of counties and states!
 def get_income_from_county(county, state, year): 
   county = '%s County' % county
   year_col = 'pcpi_%s' % str(year)
@@ -22,15 +23,27 @@ def get_income_from_county(county, state, year):
   income = df[(df.state == state) & (df.county == county)].iloc[0][year_col]
   return income.item()
 
+# valid years: 2011-2015
 def get_gdp_from_state(state, year):
-  # TODO: pre-merge before finishing this
-  df2015 = pd.read_csv('us_states_gdp_in_millions_of_dollars_2015_q2.csv', encoding='utf-8')
-  df = pd.read_csv('us_states_real_gdp_2011_2014.csv', encoding='utf-8')
+  year_col = 'gdp_%s' % str(year)
+  df = pd.read_csv('us_states_real_gdp_2011_2015.csv', encoding='utf-8')
+  gdp = df[df.state == state].iloc[0][year_col]
+  return gdp.item()
+
+# valid years: 2012-2014
+def get_pce_from_state(state, year):
+  year_col = 'pce_%s' % str(year)
+  df = pd.read_csv('us_states_personal_consumption_expenditures_2012_2014.csv', encoding='utf-8')
+  pce = df[df.state == state].iloc[0][year_col]
+  return pce.item()
+
 
 print '\nTesting...'
 county = 'San Francisco'
 state = 'California'
 year = 2014
-print get_pop_from_county(county, state, year)
-print get_income_from_county(county, state, year)
-
+print 'Data for %s, %s in year %s:' % (county, state, year)
+print 'pop: %d' % get_pop_from_county(county, state, year)
+print 'income: %d' % get_income_from_county(county, state, year)
+print 'gdp: %d' % get_gdp_from_state(state, year)
+print 'pce: %d' % get_pce_from_state(state, year)
