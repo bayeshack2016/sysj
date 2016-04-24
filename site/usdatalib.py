@@ -17,6 +17,17 @@ def get_state_codes_map():
     except:
         return None
 
+# valid years: 2014 - 2016
+def get_fraction_from_county(county, state, year, fraction=85):
+    try:
+        county_col = '%s, %s' % (county, state)
+        fraction_col = '%d_fraction_above_%d' % (year, fraction)
+        df = pd.read_csv('%s/us_counties_fraction_above_2014_2016.csv' % data_folder)
+        fraction = df[df.name == county_col].iloc[0][fraction_col]
+        return fraction.item()
+    except:
+        return None
+        
 # valid years: 2010-2015
 def get_pop_from_county(county, state, year):
     try:
@@ -65,9 +76,9 @@ def get_pce_from_state(state, year):
 
 # Uncomment for testing:
 #print '\nTesting...'
-#county = 'San Francisco'
-#state = 'California'
-#year = 2014
+county = 'San Francisco'
+state = 'California'
+year = 2014
 #print 'Data for %s, %s in year %s:' % (county, state, year)
 #print 'pop: %d' % get_pop_from_county(county, state, year)
 #print 'income: %d' % get_income_from_county(county, state, year)
@@ -75,4 +86,5 @@ def get_pce_from_state(state, year):
 #print 'pce: %d' % get_pce_from_state(state, year)
 print 'state codes: ' 
 print get_state_codes_map()
+print 'light: %0.2f' % get_fraction_from_county(county, state, year)
 
