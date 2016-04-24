@@ -189,6 +189,7 @@ def get_image_paths(sat_dir=SAT_DIR):
     """
 
     names = sh.ls(sat_dir).stdout.strip().split()
+    names = filter(lambda x: x.endswith('.tif'), names)
     yms = [get_ym_from_fname(n) for n in names]
     keys = ['%04d/%02d' % (y, m) for y, m in yms]
     return {k: os.path.join(sat_dir, n) for k, n in zip(keys, names)}
