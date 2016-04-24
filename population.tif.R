@@ -36,7 +36,7 @@ for (i in 1:length(counties)){
   
   e <- extent(temp_coord$lon - 1, temp_coord$lon + 1,
               temp_coord$lat - 0.25, temp_coord$lat + 0.25)
-  rc <- crop(rast_2014, e)
+  rc <- crop(rast_2015, e)
   
   # calculate rescale brackets for quantiles
   num_quantiles = 10
