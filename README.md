@@ -11,6 +11,8 @@ https://nightlights.terminal.com/
 
 http://ngdc.noaa.gov/eog/viirs/download_monthly.html
 
+Also see `data/`.
+
 ## Setup
 
 [Install libjpeg and zlib](http://stackoverflow.com/questions/34631806/fail-during-installation-of-pillow-python-module-in-linux)
