@@ -7,6 +7,7 @@ $(document).ready(function() {
   var $countyStats = $('#county_stats');
   var $countyStatsNone = $('#county_stats_none');
 
+  var $radiance = $('#county_radiance');
   var $pop = $('#county_pop');
   var $income = $('#county_income');
   var $pce = $('#county_pce');
@@ -55,37 +56,46 @@ $(document).ready(function() {
       curHeatmap.setMap(null);
     }
     if (heatmapCache[key]) {
-      var heatmap = heatmapCache[key];
-      heatmap.setMap(mainMap);
-      return cb(heatmap);
+      var info = heatmapCache[key];
+      info.heatmap.setMap(mainMap);
+      return cb(info);
     }
     $.get(
       '/viirs_data',
       {county: county, month: month},
       function(data) {
 
-        var minimum_intensity = Math.min.apply(0,
-          data.points.map(function(x) { return x.intensity; })
+        var minimum_radiance = Math.min.apply(0,
+          data.points.map(function(x) { return x.radiance; })
         );
-        var min_threshold = minimum_intensity + 5;
+        var min_threshold = minimum_radiance + 5;
 
+        var total_radiance = 0;
         var dataPoints = data.points.map(function(x) {
+          total_radiance += x.radiance;
           return {
             location: new google.maps.LatLng(x.lat, x.lng),
-            weight: Math.max(x.intensity - min_threshold, 0),
+            weight: Math.max(x.radiance - min_threshold, 0),
           };
         });
+
+        var radiance = total_radiance / data.points.length;
 
         var heatmap = new google.maps.visualization.HeatmapLayer({
           data: dataPoints,
           map: mainMap
         });
-        heatmap.center = {
+        var center = {
           lng: (data.bounds.lng.min + data.bounds.lng.max) / 2,
           lat: (data.bounds.lat.min + data.bounds.lat.max) / 2,
         };
-        heatmapCache[key] = heatmap;
-        return cb(heatmap);
+        var info = {
+          heatmap: heatmap,
+          center: center,
+          radiance: radiance,
+        };
+        heatmapCache[key] = info;
+        return cb(info);
       }
     );
   }
@@ -148,9 +158,10 @@ $(document).ready(function() {
         $countyStatsNone.removeClass('hidden');
       }
 
-      getHeatmap(county, month, function(heatmap) {
-        mainMap.setCenter(heatmap.center);
-        curHeatmap = heatmap;
+      getHeatmap(county, month, function(info) {
+        mainMap.setCenter(info.center);
+        curHeatmap = info.heatmap;
+        $radiance.text(info.radiance.toLocaleString());
         $opacitySelect.change();
         $radiusSelect.change();
       });

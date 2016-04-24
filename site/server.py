@@ -71,7 +71,7 @@ def viirs_data():
             'lng': { 'min': lngmin, 'max': lngmin + 1 },
         }
         points = [
-            {'lat': latmin + random.random(), 'lng': lngmin + random.random(), 'intensity': random.random()}
+            {'lat': latmin + random.random(), 'lng': lngmin + random.random(), 'radiance': random.random()}
             for _ in range(500)
         ]
 
@@ -82,7 +82,7 @@ def viirs_data():
             points.append({
                 'lat': lat,
                 'lng': lon,
-                'intensity': float(val),
+                'radiance': float(val),
             })
 
     if bounds is None:
