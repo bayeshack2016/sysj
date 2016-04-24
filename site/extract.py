@@ -12,7 +12,7 @@ def get_county_data(counties, month):
     for n in counties:
         print n
         _, _, unmasked, masked, _ = dao.get_county(n, month, 'raster')
-        county_name, state_name = tuple(n.split(','))
+        county_name, state_name = tuple(n.split(',').strip())
         # import pudb; pudb.set_trace()
         flat = np.array(masked[~masked.mask])
         percentiles = np.percentile(flat, percents)
@@ -93,4 +93,4 @@ if __name__ == '__main__':
     df = create_dataframe(counties, month).set_index('name')
     add_fractions(df)
     
-    df.to_csv(args.output, index=False)
+    df.to_csv(args.output, index=True)
