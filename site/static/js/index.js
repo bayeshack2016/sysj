@@ -100,8 +100,10 @@ $(document).ready(function() {
       {county: county, month: month},
       function(data) {
 
-        var minimum_radiance = data.points.reduce(function(x, y) { return Math.min(x, y.radiance); }, 0);
-        var min_threshold = minimum_radiance + 5;
+        var minimum_intensity = d3.min(data.points, function(p) {
+          return p.intensity;
+        })
+        var min_threshold = minimum_intensity + 5;
 
         var total_radiance = 0;
         var dataPoints = data.points.map(function(x) {

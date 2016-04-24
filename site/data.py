@@ -37,22 +37,6 @@ COUNTY_GJS = os.path.join(INT_DATA_DIR, 'us_counties_5m.json')
 STATE_META = os.path.join(INT_DATA_DIR, 'state.txt')
 
 
-def coords_to_px(lat, lon, affine):
-    """
-    Given the affine mapping for a raster block, find the nearest
-    """
-    lat_px = int(np.round((lat - affine.f) / affine.e))
-    lon_px = int(np.round((lon - affine.c) / affine.a))
-    return lat_px, lon_px
-
-def px_to_coords(lat_px, lon_px, affine):
-    """
-    Given the affine mapping for a raster block, find the nearest
-    """
-    lat = float(lat_px * affine.e + affine.f)
-    lon = float(lon_px * affine.a + affine.c)
-    return lat, lon
-
 class Data(object):
 
     def __init__(self):
@@ -89,6 +73,13 @@ class Data(object):
             except KeyError:
                 raise ValueError("Unknown month %r" % month)
             return geoj, affine, bbox, mbbox, mask
+
+    def get_county_diff(self, county_name, month0, month1):
+        geoj, affine, bbox0, mbbox0, mask = self.get_county(
+            county_name, month0, 'raster'
+        )
+        _, _, bbox1, mbbox1, _ = self.get_county(county_name, month1, 'raster')
+        return geoj, affine, bbox1 - bbox0, mbbox1 - mbbox0, mask
 
     def state_meta(self, state_id):
         "Get a dict of metadata about a state"
@@ -177,11 +168,67 @@ def get_sub_image(raster_file, geo_feature):
     bb_masked = np.ma.array(data=bb_data, mask=mask)
     return bb_affine, bb_data, bb_masked, mask
 
+
+def get_lat_and_lng_iter(np_array, affine, mask=None):
+    """
+    Iterate over a (possibly masked) 2d raster array, yielding
+    (lat, long, value) for each pixel.
+
+    The outputs are dicts where all values are cast to basic python types
+    so that json can serialize them.
+    """
+    for i, j, val in get_2d_array_iter(np_array, mask):
+        lat, lng = px_to_coords(i, j, affine)
+        yield {'lat': float(lat),
+               'lng': float(lng),
+               'intensity': float(val)}
+
+
 def get_2d_array_iter(np_array, mask=None):
+    """
+    Iterate over the indices of a 2d, possibly masked array.
+    Yield the indices and the value
+    """
     for i in range(np_array.shape[0]):
         for j in range(np_array.shape[1]):
             if mask is None or not mask[i][j]:
-                  yield i, j, np_array[i][j]
+                yield i, j, np_array[i][j]
+
+
+def coords_to_px(lat, lng, affine):
+    """
+    Given the affine mapping for a raster block, find the nearest
+    """
+    lat_px = int(np.round((lat - affine.f) / affine.e))
+    lng_px = int(np.round((lng - affine.c) / affine.a))
+    return lat_px, lng_px
+
+
+def get_bounds(points):
+    """
+    Given a list of {'lat': lat, 'lng': lng} dicts,
+    get the rectangluar boundaries.
+    """
+    return {
+        'lat': {
+            'min': min([x['lat'] for x in points]),
+            'max': max([x['lat'] for x in points])
+        },
+        'lng': {
+            'min': min([x['lng'] for x in points]),
+            'max': max([x['lng'] for x in points])
+        },
+    }
+
+
+def px_to_coords(lat_px, lng_px, affine):
+    """
+    Given the affine mapping for a raster block, find the nearest
+    """
+    lat = float(lat_px * affine.e + affine.f)
+    lng = float(lng_px * affine.a + affine.c)
+    return lat, lng
+
 
 # utilities ----------------------------------------
 
@@ -211,9 +258,3 @@ def get_ym_from_fname(fname):
     year = int(start_date_str[:4])
     month = int(start_date_str[4:6])
     return year, month
-
-
-
-############ script
-
-
