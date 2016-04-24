@@ -22,7 +22,12 @@ block sidebar
         td
           | Opacity
         td
-          input#opacity_select(type="range", id="weight", min="0", value="0.30", max="1", step="0.01")
+          input#opacity_select(type="range", min="0", max="1", step="0.01", value="0.30")
+      tr.widget-option
+        td
+          | Radius
+        td
+          input#radius_select(type="range", min="1", max="2", step="0.01", value="1")
   .widget
     h1 County statistics
     #county_stats_none
