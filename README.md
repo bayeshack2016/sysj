@@ -8,7 +8,11 @@ Example: Take a look at the growth in Loving, Texas from 2014 to 2016 (this is t
 
 Bayes Hack 2016
 
-Team: Yang Hong, Sasha Targ, Steven Troxler, Jeff Wu
+Team: 
+- Yang Hong (yanghong.ee `@`gmail.com)
+- Sasha Targ (sasha.targ `@` gmail.com)
+- Steven Troxler (steven.troxler `@` gmail.com)
+- Jeff Wu (wuthefwasthat `@` gmail.com)
 
 ## Data sources
 
