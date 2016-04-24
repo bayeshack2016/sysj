@@ -12,7 +12,7 @@ def get_county_data(counties, month):
     for n in counties:
         print n
         _, _, unmasked, masked, _ = dao.get_county(n, month, 'raster')
-        county_name, state_name = tuple(n.split(',').strip())
+        county_name, state_name = tuple(map(lambda x: x.strip(), n.split(',')))
         # import pudb; pudb.set_trace()
         flat = np.array(masked[~masked.mask])
         percentiles = np.percentile(flat, percents)
