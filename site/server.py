@@ -3,7 +3,7 @@ import flask
 from flask import Flask, render_template, request
 import os
 
-mock = True
+mock = False
 
 if not mock:
     # relative imports
@@ -48,21 +48,48 @@ def months():
 def viirs_data():
     county = request.args.get('county')
     month = request.args.get('month')
+
+    points = []
+    bounds = None
+
     if mock:
         latmin = 37.782551
         lngmin = -121.445368
-        return flask.jsonify(
-            bounds = {
-                'lat': { 'min': latmin, 'max': latmin + 1 },
-                'lng': { 'min': lngmin, 'max': lngmin + 1 },
-            },
-            points = [
-                {'lat': latmin + random.random(), 'lng': lngmin + random.random(), 'intensity': random.random()}
-                for _ in range(500)
-            ],
-        )
+        bounds = {
+            'lat': { 'min': latmin, 'max': latmin + 1 },
+            'lng': { 'min': lngmin, 'max': lngmin + 1 },
+        }
+        points = [
+            {'lat': latmin + random.random(), 'lng': lngmin + random.random(), 'intensity': random.random()}
+            for _ in range(500)
+        ]
+
     else:
-        raise NotImplementedError("Oops")
+        geoj, affine, bbox, mbbox = dao.get_county(county, month=month, which='raster')
+        for i, j, val in data.get_2d_array_iter(bbox):
+            lat, lon = data.px_to_coords(i, j, affine)
+            points.append({
+                'lat': lat,
+                'lng': lon,
+                'intensity': float(val),
+            })
+
+    if bounds is None:
+        bounds = {
+            'lat': {
+                'min': min([x['lat'] for x in points]),
+                'max': max([x['lat'] for x in points])
+            },
+            'lng': {
+                'min': min([x['lng'] for x in points]),
+            'max': max([x['lng'] for x in points])
+            },
+        }
+
+    return flask.jsonify(
+        bounds = bounds,
+        points = points,
+    )
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

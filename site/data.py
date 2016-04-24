@@ -45,6 +45,13 @@ def coords_to_px(lat, lon, affine):
     lon_px = int(np.round((lon - affine.c) / affine.a))
     return lat_px, lon_px
 
+def px_to_coords(lat_px, lon_px, affine):
+    """
+    Given the affine mapping for a raster block, find the nearest
+    """
+    lat = float(lat_px * affine.e + affine.f)
+    lon = float(lon_px * affine.a + affine.c)
+    return lat, lon
 
 class Data(object):
 
@@ -142,13 +149,13 @@ def get_sub_image(raster_file, geo_feature):
     # get a shapely geometry object from the feature
     geometry = shape(geo_feature['geometry'])
     # get pixel coordinates of the geometry's bounding box
-    ul = raster_file.index(*geometry.bounds[0:2])
+    tl = raster_file.index(*geometry.bounds[0:2])
     br = raster_file.index(*geometry.bounds[2:4])
     # get the affine transformation appropriate for data from that bounding box
     t = raster_file.affine
-    bb_affine = Affine(t.a, t.b, t.c+ul[1]*t.a, t.d, t.e, t.f+br[0]*t.e)
+    bb_affine = Affine(t.a, t.b, t.c+tl[1]*t.a, t.d, t.e, t.f+br[0]*t.e)
     # read the subset of the data into a numpy array
-    raster_window = ((br[0], ul[0]+1), (ul[1], br[1]+1))
+    raster_window = ((br[0], tl[0]+1), (tl[1], br[1]+1))
     bb_data = raster_file.read(1, window=raster_window)
     # compute the bitmask for inclusion, and make a masked version of bb_data
     containment_mask = rasterio.features.rasterize(
@@ -162,6 +169,10 @@ def get_sub_image(raster_file, geo_feature):
     bb_masked = np.ma.array(data=bb_data, mask=containment_mask.astype(bool))
     return bb_affine, bb_data, bb_masked
 
+def get_2d_array_iter(np_array):
+    for i in range(np_array.shape[0]):
+        for j in range(np_array.shape[1]):
+            yield i, j, np_array[i][j]
 
 # utilities ----------------------------------------
 
