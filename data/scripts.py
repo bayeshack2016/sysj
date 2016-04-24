@@ -116,3 +116,13 @@ pce = pd.read_csv('us_states_personal_consumption_expenditures_2012_2014.csv', e
 pce_by_perc_change = pce.sort_values('perc_change_2013_2014', ascending=False)
 print pce_by_perc_change.head(10)
 
+# Temp code to data munge gdp data
+#gdp = pd.read_csv('us_states_percent_change_gdp_2014_2015.csv', sep='  ', engine='python')
+#gdp.to_csv('us_states_percent_change_gdp_2014_2015.csv', sep=',', index=False)
+
+print '\n=== Top 10 states by percent increase in GDP from 2014 to 2015: ==='
+gdp = pd.read_csv('us_states_percent_change_gdp_2014_2015.csv', encoding='utf-8')
+#gdp['gdp_2014_2015_q3'] = gdp.apply(lambda r: round((r['gdp_2015_q3'] - r['gdp_2014_q3'])/r['gdp_2014_q3'], 1), axis=1)
+gdp_by_perc_change = gdp.sort_values('gdp_2015_q3', ascending=False)  # gdp_2014_2015_q3
+print gdp_by_perc_change.head(10)
+
