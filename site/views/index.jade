@@ -2,63 +2,72 @@ extend layout
 block content
   #map
 block sidebar
-  .widget
-    h1
-      | Options
-
+  .sidebar-content
     table
-      tr.widget-option
+      tr
+        td
+          h1
+            i(class="fa fa-th-list", aria-hidden="true")
+        td
+          h1
+            | Options
+
+      tr
         td
           | County
         td
           select#county_select(name="counties")
 
-      tr.widget-option
+      tr
         td
           | Month
         td
           select#month_select(name="months")
 
-      tr.widget-option
+      tr
         td
           | Opacity
         td
           input#opacity_select(type="range", min="0", max="1", step="0.01", value="0.30")
-      tr.widget-option
+      tr
         td
           | Radius
         td
           input#radius_select(type="range", min="1", max="2", step="0.01", value="1")
 
-  .widget(style='margin-top:20px')
-    h1 County statistics
-    table#stats_table
-      tr.widget-option
+      tr
+        td
+          h1
+            i(class="fa fa-bar-chart", aria-hidden="true")
+        td
+          h1
+            | County statistics
+      tr
         td#county_radiance
           | ?
         td
           | average infrared radiance
-      tr.widget-option
+      tr
         td#county_pop
           | ?
         td
           | people
-      tr.widget-option
+      tr
         td#county_gdp
           | ?
         td
           | million in GDP
-      tr.widget-option
+      tr
         td#county_pce
           | ?
         td
           | personal consumption expenditures
-      tr.widget-option
+      tr
         td#county_income
           | ?
         td
           | per capita personal income
-      tr.widget-option
+      tr
         td
         td
           a#county_link(target="_blank") See more

@@ -52,26 +52,16 @@ footer {
   width: 40%;
 }
 
-.widget {
-/*
-     * Note the lack of vendor
-     * prefixes here. Nib will
-     * add them for us
-     */
+.sidebar-content {
   margin-left: 20px;
   padding: 10px;
 }
 
-.widget h1 {
-  margin-bottom: 20px;
-}
-
-.widget p {
-  font-size: 13px;
+.sidebar h1 {
   margin-bottom: 10px;
 }
 
-.widget-option {
+tr {
   padding: 5px;
 }
 
@@ -92,7 +82,7 @@ a, a:visited {
   color: #3e94cf;
 }
 
-#stats_table td:nth-child(1) {
+td:nth-child(1) {
   text-align: right;
   padding-right: 10px;
 }
