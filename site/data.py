@@ -113,10 +113,15 @@ class Data(object):
 
         """
         raw_counties = load_county_geojson()['features']  # list of geo json
-        county_name = lambda x: x['properties']['NAME']
-        state_name = lambda x: self.state_meta(
-            x['properties']['STATE']
-        )['STATE_NAME']
+
+        def county_name(county):
+            return county['properties']['NAME'].encode(
+                'ascii', errors='backslashreplace'
+            )
+
+        def state_name(county):
+            state_id = county['properties']['STATE']
+            return self.state_meta(state_id)['STATE_NAME']
 
         def get_name(county):
             return u'{}, {}'.format(county_name(county), state_name(county))

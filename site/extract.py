@@ -1,16 +1,16 @@
-import rasterio
 import numpy as np
 import pandas as pd
-import time
 import argparse
 import os
 
 # relative import
 import data
 
+
 def get_county_data(counties, month):
     percents = np.linspace(0, 100, 101)
     for n in counties:
+        print n
         _, _, unmasked, masked, _ = dao.get_county(n, month, 'raster')
         county_name, state_name = tuple(n.split(','))
         # import pudb; pudb.set_trace()
@@ -22,9 +22,9 @@ def get_county_data(counties, month):
             'state_name': state_name,
         }
         for p, v in zip(percents, percentiles):
-            county_data['percentile_%d' %p] = v
-        print 'fetched: ' + str(time.time() - start_time)
+            county_data['percentile_%d' % p] = v
         yield county_data
+
 
 def dataframe_from_record_iter(data, length):
     first = data.next()
@@ -34,14 +34,16 @@ def dataframe_from_record_iter(data, length):
     i = 0
     for record in data:
         i += 1
-        for k,v in record.iteritems():
+        for k, v in record.iteritems():
             df.set_value(i, k, v)
     return df
+
 
 def create_dataframe(counties, month):
     iter_ = get_county_data(counties, month)
     n_county = len(counties)
     return dataframe_from_record_iter(iter_, n_county)
+
 
 if __name__ == '__main__':
 
@@ -66,5 +68,3 @@ if __name__ == '__main__':
     df = create_dataframe(counties, month)
 
     df.to_csv(args.output, index=False)
-=======
->>>>>>> 79ac0c228f803722e4d6db28367b649590b1b55c
