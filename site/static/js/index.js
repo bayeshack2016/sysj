@@ -65,9 +65,7 @@ $(document).ready(function() {
       {county: county, month: month},
       function(data) {
 
-        var minimum_radiance = Math.min.apply(0,
-          data.points.map(function(x) { return x.radiance; })
-        );
+        var minimum_radiance = data.points.reduce(function(x, y) { return Math.min(x, y.radiance); }, 0);
         var min_threshold = minimum_radiance + 5;
 
         var total_radiance = 0;
@@ -85,13 +83,9 @@ $(document).ready(function() {
           data: dataPoints,
           map: mainMap
         });
-        var center = {
-          lng: (data.bounds.lng.min + data.bounds.lng.max) / 2,
-          lat: (data.bounds.lat.min + data.bounds.lat.max) / 2,
-        };
         var info = {
           heatmap: heatmap,
-          center: center,
+          bounds: data.bounds,
           radiance: radiance,
         };
         heatmapCache[key] = info;
@@ -106,6 +100,22 @@ $(document).ready(function() {
     mapTypeId: google.maps.MapTypeId.SATELLITE
   });
   var curHeatmap;
+
+  function reset_zoom(bounds) {
+    var zoom = 20;
+    while (
+      (zoom > 0) &&
+      (
+           (mainMap.getBounds().j.j > bounds.lng.min)
+        || (mainMap.getBounds().j.R < bounds.lng.max)
+        || (mainMap.getBounds().R.R > bounds.lat.min)
+        || (mainMap.getBounds().R.j < bounds.lat.max)
+      )
+    ) {
+      zoom--;
+      mainMap.setZoom(zoom);
+    }
+  }
 
   function reset_radius() {
     var radius =
@@ -159,9 +169,13 @@ $(document).ready(function() {
       }
 
       getHeatmap(county, month, function(info) {
-        mainMap.setCenter(info.center);
+        mainMap.setCenter({
+          lng: (info.bounds.lng.max + info.bounds.lng.min) / 2,
+          lat: (info.bounds.lat.max + info.bounds.lat.min) / 2,
+        });
         curHeatmap = info.heatmap;
         $radiance.text(info.radiance.toLocaleString());
+        reset_zoom(info.bounds);
         $opacitySelect.change();
         $radiusSelect.change();
       });
