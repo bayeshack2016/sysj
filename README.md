@@ -1,5 +1,8 @@
 # Night Lights
-https://nightlights.terminal.com/
+
+Explore: https://nightlights.terminal.com/
+
+Example: Take a look at the growth in Loving, Texas from 2014 to 2016 (this is the leading county in population growth and net domestic migration rate in the US).
 
 ![VIIRS Suomi NPP satellite US 2012](data/nightlights.jpg)
 
@@ -34,8 +37,8 @@ python server.py
 
 ## The future
 
+- show NTL (night-time light) data and change over time (give us 1 more hour and we'll have these change in infrared light heatmaps done!)
 - analyze whole world (using world bank PPP/CPI data), with focus on developing countries (NTL should be stronger signal there than in developed countries)
-- show NTL (night-time light) data and change over time
 - show entire country view for state-to-state comparisons
 - show entire state view for county-to-county comparisons
 - automated pipeline that takes in raw VIIRS images, and generates both NTL statistics and powers the web app for data exploration
