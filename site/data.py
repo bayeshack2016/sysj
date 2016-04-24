@@ -37,6 +37,15 @@ COUNTY_GJS = os.path.join(INT_DATA_DIR, 'us_counties_5m.json')
 STATE_META = os.path.join(INT_DATA_DIR, 'state.txt')
 
 
+def coords_to_px(lat, lon, affine):
+    """
+    Given the affine mapping for a raster block, find the nearest
+    """
+    lat_px = int(np.round((lat - affine.f) / affine.e))
+    lon_px = int(np.round((lon - affine.c) / affine.a))
+    return lat_px, lon_px
+
+
 class Data(object):
 
     def __init__(self):
