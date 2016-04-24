@@ -91,3 +91,8 @@ p {
 a, a:visited {
   color: #3e94cf;
 }
+
+#stats_table td:nth-child(1) {
+  text-align: right;
+  padding-right: 10px;
+}

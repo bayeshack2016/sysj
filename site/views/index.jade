@@ -32,6 +32,24 @@ block sidebar
 
   .widget(style='margin-top:20px')
     h1 County statistics
-    #county_stats_none
-      | Sorry!  No county stats found!
-    #county_stats.hidden
+    table#stats_table
+      tr.widget-option
+        td#county_pop
+          | ?
+        td
+          | people
+      tr.widget-option
+        td#county_gdp
+          | ?
+        td
+          | million in GDP
+      tr.widget-option
+        td#county_pce
+          | ?
+        td
+          | personal consumption expenditures
+      tr.widget-option
+        td#county_income
+          | ?
+        td
+          | per capita personal income

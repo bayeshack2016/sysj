@@ -7,6 +7,11 @@ $(document).ready(function() {
   var $countyStats = $('#county_stats');
   var $countyStatsNone = $('#county_stats_none');
 
+  var $pop = $('#county_pop');
+  var $income = $('#county_income');
+  var $pce = $('#county_pce');
+  var $gdp = $('#county_gdp');
+
   var initial_county = 'San Francisco';
   // center of sf
   var initial_center = {
@@ -109,7 +114,32 @@ $(document).ready(function() {
   function initMap() {
     var county = $countySelect.val();
     var month = $monthSelect.val();
-    $.get('/county_info', {county: county}, function(data) {
+    $.get('/county_info', {county: county, month: month}, function(data) {
+
+      if (data.info['pop']) {
+        $pop.text(data.info['pop'].toLocaleString());
+      } else {
+        $pop.text('Unavailable');
+      }
+
+      if (data.info['gdp']) {
+        $gdp.text('$' + data.info['gdp'].toLocaleString());
+      } else {
+        $gdp.text('Unavailable');
+      }
+
+      if (data.info['income']) {
+        $income.text('$' + data.info['income'].toLocaleString());
+      } else {
+        $income.text('Unavailable');
+      }
+
+      if (data.info['pce']) {
+        $pce.text('$' + data.info['pce'].toLocaleString());
+      } else {
+        $pce.text('Unavailable');
+      }
+
       if (data.info) {
         $countyStats.removeClass('hidden');
         $countyStatsNone.addClass('hidden');
