@@ -11,8 +11,8 @@
  */
 body {
   font-family: 'Georgia';
-  background-color: #faf9f0;
-  color: #444;
+  background-color: #212121;
+  color: #fad980;
 }
 
 header {
@@ -20,13 +20,13 @@ header {
   padding: 1px;
   color: #fff;
   text-align: center;
-  background-color: #563554;
+  background-color: #112e51;
 }
 
 footer {
   width: 100%;
   padding: 5px 20px;
-  border-top: 1px dotted #ccc;
+  border-top: 1px dotted #fad980;
   font-size: 13px;
 }
 
@@ -57,10 +57,9 @@ footer {
      * add them for us
      */
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid #fad980;
   margin-left: 20px;
-  background-color: #faf9f0;
-  box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,0.8), 0px 3px 0px -2px rgba(0,0,0,0.1);
+  background-color: #323a45;
   padding: 10px 10px 10px 10px;
 }
 
