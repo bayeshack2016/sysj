@@ -10,7 +10,7 @@ app.debug = True
 # templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'views')
 
 @app.route("/")
-def hello():
+def index():
     return render_template('index.jade')
 
 @app.route('/counties')
@@ -18,10 +18,17 @@ def counties():
     counties = ['Detroit, MI', 'Los Angeles, CA']
     return flask.jsonify(counties=counties)
 
+@app.route('/months')
+def months():
+    months = ['2012/10', '2012/11']
+    return flask.jsonify(months=months)
+
 @app.route('/viirs_data')
 def viirs_data():
     county = request.args.get('county')
+    month = request.args.get('month')
     print "COUNTY", county
+    print "MONTH", month
     return flask.jsonify(
         points = [
             {'lat': 37.782551 + random.random(), 'lng': -122.445368 + random.random()}
