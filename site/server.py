@@ -65,26 +65,11 @@ def viirs_data():
         ]
 
     else:
-        geoj, affine, bbox, _, mask = dao.get_county(county, month=month, which='raster')
-        for i, j, val in data.get_2d_array_iter(bbox, mask):
-            lat, lon = data.px_to_coords(i, j, affine)
-            points.append({
-                'lat': lat,
-                'lng': lon,
-                'intensity': float(val),
-            })
-
-    if bounds is None:
-        bounds = {
-            'lat': {
-                'min': min([x['lat'] for x in points]),
-                'max': max([x['lat'] for x in points])
-            },
-            'lng': {
-                'min': min([x['lng'] for x in points]),
-            'max': max([x['lng'] for x in points])
-            },
-        }
+        geoj, affine, bbox, _, mask = dao.get_county(
+            county, month=month, which='raster'
+        )
+        points = list(data.get_lat_and_lng_iter(bbox, affine, mask))
+        bounds = data.get_bounds(points)
 
     return flask.jsonify(
         bounds = bounds,

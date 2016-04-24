@@ -59,9 +59,9 @@ $(document).ready(function() {
       {county: county, month: month},
       function(data) {
 
-        var minimum_intensity = Math.min.apply(0,
-          data.points.map(function(x) { return x.intensity; })
-        );
+        var minimum_intensity = d3.min(data.points, function(p) {
+          return p.intensity;
+        })
         var min_threshold = minimum_intensity + 5;
 
         var dataPoints = data.points.map(function(x) {
