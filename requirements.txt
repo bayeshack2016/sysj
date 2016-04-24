@@ -14,3 +14,4 @@ rasterio
 fiona
 affine
 tqdm
+sh

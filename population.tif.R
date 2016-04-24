@@ -21,10 +21,12 @@ projection(rast_2014) <- CRS(wgs84)
 projection(rast_2015) <- CRS(wgs84)
 
 # create a list of counties
-counties <- c("Loving County, TX", "McKenzie County, ND", "Williams County, ND", "King County, TX")
+# McKenzie County, ND and Williams County, ND don't work because they are cutoff in the satellite image
+# counties <- c("Loving County, TX", "McKenzie County, ND", "Williams County, ND", "King County, TX")
+counties <- c("Loving County, TX")
 
-# set up graph display (no margins, 2 rows by 2 columns)
-par(mai=c(0,0,0,0),mfrow = c(2,2),bg='#001a4d', bty='n')
+# set up graph display (no margins, one image)
+par(mai=c(0,0,0,0),mfrow = c(1,1),bg='#001a4d', bty='n')
 
 # plot light data for each county
 for (i in 1:length(counties)){    
@@ -34,7 +36,7 @@ for (i in 1:length(counties)){
   
   e <- extent(temp_coord$lon - 1, temp_coord$lon + 1,
               temp_coord$lat - 0.25, temp_coord$lat + 0.25)
-  rc <- crop(rast_2015, e)
+  rc <- crop(rast_2014, e)
   
   # calculate rescale brackets for quantiles
   num_quantiles = 10
