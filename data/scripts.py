@@ -106,3 +106,13 @@ They are the top 4 counties by both pop rate and net domestic migration rate fro
 print '\n=== Per capita personal income in the 5 counties of interest from 2012 to 2014: ==='
 pcpi = pd.read_csv('us_counties_per_capita_personal_income_2012_2014_subset.csv', encoding='utf-8')
 print pcpi
+
+# Temp code to data munge pce data
+#pce = pd.read_csv('us_states_personal_consumption_expenditures_2012_2014.csv', sep='  ', engine='python')
+#pce.to_csv('us_states_personal_consumption_expenditures_2012_2014.csv', sep=',', index=False)
+
+print '\n=== Top 10 states by percent increase in personal consumption expenditures from 2013 to 2014: ==='
+pce = pd.read_csv('us_states_personal_consumption_expenditures_2012_2014.csv', encoding='utf-8')
+pce_by_perc_change = pce.sort_values('perc_change_2013_2014', ascending=False)
+print pce_by_perc_change.head(10)
+
