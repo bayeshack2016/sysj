@@ -8,7 +8,7 @@ Example: Take a look at the growth in Loving, Texas from 2014 to 2016 (this is t
 
 Bayes Hack 2016
 
-Team: 
+Team:
 - Yang Hong (yanghong.ee `@`gmail.com)
 - Sasha Targ (sasha.targ `@` gmail.com)
 - Steven Troxler (steven.troxler `@` gmail.com)
@@ -22,15 +22,39 @@ Also see `data/`.
 
 ## Setup
 
-[Install libjpeg and zlib](http://stackoverflow.com/questions/34631806/fail-during-installation-of-pillow-python-module-in-linux)
-```
-brew install libjpeg zlib gdal
-```
+For the lazy, there is a premade snapshot (including the data) [on Terminal.com](https://www.terminal.com/snapshot/1b57cc3d68112dcff922d1a1d98ae70de29161cb5080387e3d02377546e55ae0).
 
-Install python libraries
-```
-pip install -r requirements.txt
-```
+We assume you already have some basics, like `git`, `python2.7`, `pip`.
+
+Otherwise:
+
+1.  Git clone this repo
+    ```git clone https://github.com/bayeshack2016/sysj```
+
+1.  Download the python dependencies
+    ```
+    pip install -r requirements.txt
+    ```
+
+    NOTE: for the lxml module, you will need libxml
+    e.g. on ubuntu:
+    ```
+    sudo apt-get update -y
+    sudo apt-get install -y python-lxml
+    ```
+
+    NOTE: for the pillow module, you will need libjpeg and zlib
+    e.g. on ubuntu:
+    ```
+    TODO
+    ```
+    on os x:
+    ```
+    brew install libjpeg zlib gdal
+    ```
+
+1. Download the data
+   ``` python download_viirs_data.py ```
 
 ## Run webserver
 

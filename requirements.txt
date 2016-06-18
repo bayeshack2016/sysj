@@ -1,4 +1,6 @@
 # can pin versions later if needed
+bs4
+lxml
 pandas
 jupyter
 matplotlib
