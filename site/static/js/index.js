@@ -35,7 +35,8 @@ $(document).ready(function() {
     'Sumter, Florida': true,
   };
 
-  function getCounties(cb) {
+  // get list of counties, and create select menu
+  function initCounties(cb) {
     $.get('/counties', function(data) {
       $countySelect.empty();
 
@@ -61,22 +62,36 @@ $(document).ready(function() {
           $('<option>').text(county).val(county)
         );
       });
+
+      $countySelect.change(function() {
+        redrawMap();
+      });
+
       cb();
     });
   }
 
-  function getMonths(cb) {
+  // get list of months, and create select menu
+  function initMonths(cb) {
     $.get('/months', function(data) {
       $monthSelect.empty();
+
       data.months.forEach(function(month) {
         $monthSelect.append(
           $('<option>').text(month).val(month)
         );
       });
+
+      $monthSelect.change(function() {
+        redrawMap();
+      });
+
       cb();
     });
   }
 
+  // get mapping from states to state codes
+  // (needs to only happen once)
   var state_code_map;
   function getStateCodeMap(cb) {
     $.get('/state_code_map', function(data) {
@@ -85,7 +100,10 @@ $(document).ready(function() {
     });
   }
 
+  // cache from (county, month) pairs to a heatmap
   var heatmapCache = {};
+  // gathers the data for a given county and month
+  // creates a heat map using the Google maps API
   function getHeatmap(county, month, cb) {
     var key = county + '::' + month;
     if (curHeatmap) {
@@ -132,6 +150,7 @@ $(document).ready(function() {
     );
   }
 
+  // main google maps map, on top of which heat maps are overlayed
   var mainMap = new google.maps.Map($map[0], {
     zoom: initial_zoom,
     center: initial_center,
@@ -139,6 +158,7 @@ $(document).ready(function() {
   });
   var curHeatmap;
 
+  // set the main map to contain the bounds
   function reset_zoom(bounds) {
     mainMap.fitBounds(new google.maps.LatLngBounds(
       new google.maps.LatLng(bounds.lat.min, bounds.lng.min),
@@ -146,6 +166,7 @@ $(document).ready(function() {
     ));
   }
 
+  // set the heat map to have a certain radius
   function reset_radius() {
     var radius =
         0.005 * $radiusSelect.val() *
@@ -160,6 +181,14 @@ $(document).ready(function() {
     curHeatmap && curHeatmap.set('opacity', $opacitySelect.val());
   });
 
+  // updates data for a county:
+  // - tries to grab data from the server
+  //     - fraction of county lit
+  //     - population
+  //     - gdp
+  //     - income
+  //     - personal consumption expenditures
+  // - links to datausa.io
   function updateCounty(cb) {
     var county = $countySelect.val();
     var month = $monthSelect.val();
@@ -207,7 +236,8 @@ $(document).ready(function() {
     });
   }
 
-  function initMap() {
+  // redraw the map according to current selections
+  function redrawMap() {
     updateCounty(function() {
       var county = $countySelect.val();
       var month = $monthSelect.val();
@@ -225,20 +255,13 @@ $(document).ready(function() {
     });
   }
 
-
-  getCounties(function() {
-    getMonths(function() {
+  // initialize everything!
+  initCounties(function() {
+    initMonths(function() {
       getStateCodeMap(function() {
-        initMap();
+        redrawMap();
       });
     });
   });
 
-  $countySelect.change(function() {
-    initMap();
-  });
-
-  $monthSelect.change(function() {
-    initMap();
-  });
 });
