@@ -43,16 +43,6 @@ Otherwise:
     sudo apt-get install -y python-lxml
     ```
 
-    NOTE: for the pillow module, you will need libjpeg and zlib
-    e.g. on ubuntu:
-    ```
-    TODO
-    ```
-    on os x:
-    ```
-    brew install libjpeg zlib gdal
-    ```
-
 1. Download the data
    ``` python download_viirs_data.py ```
 

@@ -8,7 +8,6 @@ pandas-profiling
 plotly
 flask
 pyjade
-pillow
 geojson
 descartes
 shapely
