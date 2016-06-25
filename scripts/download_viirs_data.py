@@ -84,18 +84,22 @@ if __name__ == "__main__":
 
     For example, to download only February data in North America:
     python download_viirs_data.py --months=2 --tiles=75N180W --outfolder=viirs_data --live
+
+    For more flexibility, you can also use this as a library.  See the implementation of
+    download_data to get a sense
+
     """, formatter_class=RawTextHelpFormatter)
 
     parser.add_argument(
         '--months',
         type=str,
-        help='a comma separated list of months, e.g. 1,6',
+        help='a comma separated list of months, e.g. 1,6 (defaults to all)',
         default=None,
     )
     parser.add_argument(
         '--years',
         type=str,
-        help='a comma separated list of years, e.g. 2013,2014',
+        help='a comma separated list of years, e.g. 2013,2014 (defaults to all)',
         default=None,
     )
     parser.add_argument(
