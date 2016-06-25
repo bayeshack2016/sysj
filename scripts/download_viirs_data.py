@@ -1,5 +1,10 @@
+"""
+This script scrapes the NOAA website to download viirs data
+"""
+
 import requests
 import os
+import sh
 from bs4 import BeautifulSoup
 
 BASE_URL = 'http://mapserver.ngdc.noaa.gov/viirs_data/viirs_composite/v10'
@@ -19,19 +24,6 @@ def list_path(path):
         if href is not None:
             result.append(href)
     return result
-
-# adapted from:
-# https://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py
-def download_file(path, target_folder=None):
-    if target_folder is None:
-        target_folder = os.path.dirname(os.path.abspath(__file__))
-    local_filename = path.split('/')[-1]
-    local_file = '%s/%s' % (target_folder, local_filename)
-    r = requests.get(BASE_URL + path, stream=True)
-    with open(local_file, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=1024):
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
 
 def get_time_periods():
     return [
@@ -66,11 +58,31 @@ def get_tile_files(time_period):
 # 75N180W - tile 1, north america
 
 # download only data in february in north america
-for time_period in get_time_periods():
-    (year, month) = parse_time_period(time_period)
-    if month == 2:
-        print year, month
+def download_data(output_folder, tiles=None, months=None, live=True):
+    for time_period in get_time_periods():
+        (year, month) = parse_time_period(time_period)
+        if not (months is None or month in months):
+            continue # not a month we care about
         for tile_file in get_tile_files(time_period):
             tile = parse_tile_filename(tile_file)
-            if tile == '75N180W':
-                download_file('/%s/vcmcfg/%s' % (time_period, tile_file))
+            if not (tiles is None or tile in tiles):
+                continue # not a tile we care about
+            url = '%s/%s/vcmcfg/%s' % (BASE_URL, time_period, tile_file)
+            if live:
+                # 'Warning: files to be downloaded are large'
+                sh.tar(
+                    sh.curl(url, _piped=True),
+                    "xzv",
+                    _cwd=output_folder
+                )
+            else:
+                print 'Would download %s' % url
+
+if __name__ == "__main__":
+    output_folder = 'viirs_data'
+    sh.mkdir('-p', output_folder)
+    download_data(
+        output_folder,
+        tiles=['75N180W'],
+        months=[2],
+    )
