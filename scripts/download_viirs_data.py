@@ -2,10 +2,12 @@
 This script scrapes the NOAA website to download viirs data
 """
 
-import requests
-import os
-import sh
+import argparse
+from argparse import RawTextHelpFormatter
 from bs4 import BeautifulSoup
+import os
+import requests
+import sh
 
 BASE_URL = 'http://mapserver.ngdc.noaa.gov/viirs_data/viirs_composite/v10'
 
@@ -49,20 +51,13 @@ def get_tile_files(time_period):
     # ignores the png files
     return [path for path in paths if path.endswith('.tgz')]
 
-# TILES:
-# 00N060E - tile 6
-# 00N060W - tile 5
-# 00N180W - tile 4
-# 75N060E - tile 3
-# 75N060W - tile 2
-# 75N180W - tile 1, north america
-
-# download only data in february in north america
-def download_data(output_folder, tiles=None, months=None, live=True):
+def download_data(output_folder, tiles=None, years=None, months=None, live=True):
     for time_period in get_time_periods():
         (year, month) = parse_time_period(time_period)
         if not (months is None or month in months):
             continue # not a month we care about
+        if not (years is None or year in years):
+            continue # not a year we care about
         for tile_file in get_tile_files(time_period):
             tile = parse_tile_filename(tile_file)
             if not (tiles is None or tile in tiles):
@@ -77,12 +72,71 @@ def download_data(output_folder, tiles=None, months=None, live=True):
                 )
             else:
                 print 'Would download %s' % url
+    if not live:
+        print """
+        Use --live to actually download!'
+        Warning: files are large (about 2G each)
+        """
 
 if __name__ == "__main__":
-    output_folder = 'viirs_data'
-    sh.mkdir('-p', output_folder)
+    parser = argparse.ArgumentParser(description="""
+    Download VIIRS data from the viirs website.
+
+    For example, to download only February data in North America:
+    python download_viirs_data.py --months=2 --tiles=75N180W --outfolder=viirs_data --live
+    """, formatter_class=RawTextHelpFormatter)
+
+    parser.add_argument(
+        '--months',
+        type=str,
+        help='a comma separated list of months, e.g. 1,6',
+        default=None,
+    )
+    parser.add_argument(
+        '--years',
+        type=str,
+        help='a comma separated list of years, e.g. 2013,2014',
+        default=None,
+    )
+    parser.add_argument(
+        '--tiles',
+        type=str,
+        help="""
+        A comma separated list of tiles.
+        Valid tiles:
+        75N180W : tile 1, north america
+        75N060W : tile 2
+        75N060E : tile 3
+        00N180W : tile 4
+        00N060W : tile 5
+        00N060E : tile 6
+        """,
+        default=None,
+    )
+    parser.add_argument(
+        '--live',
+        type=bool,
+        help="Whether to actually download",
+        default=False,
+    )
+    parser.add_argument(
+        '--outfolder',
+        type=str,
+        help="Which folder to download data to",
+        default='viirs_data',
+    )
+
+    args = parser.parse_args()
+
+    months = None if args.months is None else map(int, filter(len, args.months.split(',')))
+    years =  None if args.years  is None else map(int, filter(len, args.years.split(',') ))
+    tiles =  None if args.tiles  is None else filter(len, args.tiles.split(',') )
+
+    sh.mkdir('-p', args.outfolder)
     download_data(
-        output_folder,
-        tiles=['75N180W'],
-        months=[2],
+        args.outfolder,
+        tiles=tiles,
+        years=years,
+        months=months,
+        live=args.live,
     )
