@@ -1,0 +1,10 @@
+usdata/__init__.py
+usdata/counties.py
+usdata/states.py
+usdata.egg-info/PKG-INFO
+usdata.egg-info/SOURCES.txt
+usdata.egg-info/dependency_links.txt
+usdata.egg-info/entry_points.txt
+usdata.egg-info/not-zip-safe
+usdata.egg-info/requires.txt
+usdata.egg-info/top_level.txt

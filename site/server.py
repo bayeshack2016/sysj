@@ -2,7 +2,8 @@ import random
 import flask
 from flask import Flask, render_template, request
 import os
-import usdatalib as usdata
+
+import usdata
 
 mock = False
 
@@ -24,7 +25,7 @@ def index():
 @app.route('/state_code_map')
 def state_code_map():
     return flask.jsonify(
-        state_code_map=usdata.get_state_codes_map()
+        state_code_map=usdata.states.get_codes_map()
     )
 
 @app.route('/county_info')
@@ -38,8 +39,8 @@ def county_info():
     info = {
         'pop': usdata.get_pop_from_county(county, state, year),
         'income': usdata.get_income_from_county(county, state, year),
-        'gdp': usdata.get_gdp_from_state(state, year),
-        'pce': usdata.get_pce_from_state(state, year),
+        'gdp': usdata.states.get_gdp(state, year),
+        'pce': usdata.states.get_pce(state, year),
         'frac': usdata.get_fraction_from_county(county, state, year),
     }
     return flask.jsonify(
