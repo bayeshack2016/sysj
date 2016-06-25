@@ -46,6 +46,9 @@ Otherwise:
 1. Download the data
    ``` python download_viirs_data.py ```
 
+1. Install the usdata library
+   ``` pip install -e usdata ```
+
 ## Run webserver
 
 ```

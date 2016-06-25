@@ -2,29 +2,35 @@ import pandas as pd
 
 data_folder = 'data'
 
-# library with functions to get county level statistics from processed
-# data files
+"""
+Library with functions to get county level statistics from processed data files
+Functions generally take (county, state, year) as arguments
+With no year, will opportunistically find previous year
+"""
 
-# either (county, state, year) or (state, year)
-# if no year, will opportunistically find previous year
-
-# dict of {state_name: state_code}, e.g. {'California': 'CA'}
-
-
-# valid years: 2014 - 2016
-def get_fraction_from_county(county, state, year, fraction=85):
+def get_income(county, state, year):
+    """
+    Given a county, state and year, returns the per-capita income in dollars
+    Valid years: 2012-2014
+    Only valid for a small subset of counties and states!
+    """
     try:
-        county_col = '%s, %s' % (county, state)
-        fraction_col = '%s_fraction_above_%d' % (year, fraction)
-        df = pd.read_csv(
-            '%s/us_counties_fraction_above_2014_2016.csv' % data_folder)
-        fraction = df[df.name == county_col].iloc[0][fraction_col]
-        return float(fraction.item())
+        county = '%s County' % county
+        year_col = 'pcpi_%s' % str(year)
+        df = pd.read_csv('%s/us_counties_per_capita_personal_income_2012_2014_subset.csv' %
+                         data_folder, encoding='utf-8')
+        income = df[(df.state == state) & (
+            df.county == county)].iloc[0][year_col]
+        return income.item()
     except:
         return None
 
-# valid years: 2010-2015
-def get_pop_from_county(county, state, year):
+
+def get_population(county, state, year):
+    """
+    Given a county, state and year, returns the population
+    Valid years: 2010-2015
+    """
     try:
         county = '%s County' % county
         year_col = 'POPESTIMATE%s' % str(year)
@@ -38,16 +44,18 @@ def get_pop_from_county(county, state, year):
     except:
         return None
 
-# Uncomment for testing:
-# print '\nTesting...'
-#county = 'San Francisco'
-#state = 'California'
-#year = 2014
-# print 'Data for %s, %s in year %s:' % (county, state, year)
-# print 'pop: %d' % get_pop_from_county(county, state, year)
-# print 'income: %d' % get_income_from_county(county, state, year)
-# print 'gdp: %d' % get_gdp_from_state(state, year)
-# print 'pce: %d' % get_pce_from_state(state, year)
-# print 'state codes: '
-# print get_state_codes_map()
-# print 'light: %0.2f' % get_fraction_from_county(county, state, year)
+def get_fraction_above_coverage_percentile(county, state, year, percentile=85):
+    """
+    Given a county, state, year, and nation-wide percentile,
+    returns the fraction of that county with light coverage at least that percentile
+    Valid years: 2014-2016
+    """
+    try:
+        county_col = '%s, %s' % (county, state)
+        fraction_col = '%s_fraction_above_%d' % (year, percentile)
+        df = pd.read_csv(
+            '%s/us_counties_fraction_above_2014_2016.csv' % data_folder)
+        fraction = df[df.name == county_col].iloc[0][fraction_col]
+        return float(fraction.item())
+    except:
+        return None

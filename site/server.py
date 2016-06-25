@@ -37,11 +37,11 @@ def county_info():
     year, month = monthstring.split('/')
 
     info = {
-        'pop': usdata.get_pop_from_county(county, state, year),
-        'income': usdata.get_income_from_county(county, state, year),
+        'pop': usdata.counties.get_population(county, state, year),
+        'income': usdata.counties.get_income(county, state, year),
         'gdp': usdata.states.get_gdp(state, year),
         'pce': usdata.states.get_pce(state, year),
-        'frac': usdata.get_fraction_from_county(county, state, year),
+        'frac': usdata.counties.get_fraction_above_coverage_percentile(county, state, year),
     }
     return flask.jsonify(
         info=info
