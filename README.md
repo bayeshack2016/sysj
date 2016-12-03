@@ -22,11 +22,9 @@ Also see `data/`.
 
 ## Setup
 
-For the lazy, there is a premade snapshot (including the data) [on Terminal.com](https://www.terminal.com/snapshot/1b57cc3d68112dcff922d1a1d98ae70de29161cb5080387e3d02377546e55ae0).
-
 We assume you already have some basics, like `git`, `python2.7`, `pip`.
 
-Otherwise:
+Then:
 
 1.  Git clone this repo
     ```git clone https://github.com/bayeshack2016/sysj```
